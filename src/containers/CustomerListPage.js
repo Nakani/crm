@@ -56,7 +56,7 @@ class CustomerListPage extends React.Component {
       showCheckboxes: false,
       pageOfItems: [],
       customerId: null,
-      dialogText: "Are you sure to do this?",
+      dialogText: "Você tem certeza disso?",
       search: {
         firstName: "",
         lastName: ""
@@ -110,7 +110,7 @@ class CustomerListPage extends React.Component {
   }
 
   handleOpen(id) {
-    this.setState({ dialogText: "Are you sure to delete this data?" });
+    this.setState({ dialogText: "Tem certeza que deseja excluir?" });
     this.setState({ open: true });
     this.setState({ customerId: id });
   }
@@ -373,7 +373,7 @@ class CustomerListPage extends React.Component {
           </div>
 
           <Dialog
-            title="Confirm Dialog "
+            title="Confirmar "
             actions={actions}
             modal={true}
             contentStyle={styles.dialog}
@@ -398,8 +398,8 @@ class CustomerListPage extends React.Component {
             />
 
             <TextField
-              hintText="First Name"
-              floatingLabelText="First Name"
+              hintText="Nome"
+              floatingLabelText="Nome"
               name="firstName"
               fullWidth={true}
               value={this.state.search.firstName}
@@ -407,8 +407,8 @@ class CustomerListPage extends React.Component {
             />
 
             <TextField
-              hintText="Last Name"
-              floatingLabelText="Last Name"
+              hintText="Sobrenome"
+              floatingLabelText="Sobrenome"
               fullWidth={true}
               name="lastName"
               value={this.state.search.lastName}

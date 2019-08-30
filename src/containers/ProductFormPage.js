@@ -138,7 +138,7 @@ class ProductFormPage extends React.Component {
       return <CircularProgress />;
     } else {
       return (
-        <PageBase title="Product" navigation="Application / Product ">
+        <PageBase title="Produtos" navigation="Applicação / Produto ">
           <Formsy.Form
             onValid={this.enableButton}
             onInvalid={this.disableButton}
@@ -148,7 +148,7 @@ class ProductFormPage extends React.Component {
             <GridList cellHeight={100} cols={2}>
               <GridTile>
                 <FormsySelect
-                  floatingLabelText="Categories"
+                  floatingLabelText="Categorias"
                   value={product.category ? product.category.id : 0}
                   onChange={this.handleChange}
                   style={styles.customWidth}
@@ -166,8 +166,8 @@ class ProductFormPage extends React.Component {
               </GridTile>
               <GridTile>
                 <FormsyText
-                  hintText="Product"
-                  floatingLabelText="Product"
+                  hintText="Produtos"
+                  floatingLabelText="Produtos"
                   name="product"
                   onChange={this.handleChange}
                   fullWidth={true}
@@ -176,8 +176,8 @@ class ProductFormPage extends React.Component {
                     isWords: true
                   }}
                   validationErrors={{
-                    isWords: "Please provide valid product name",
-                    isDefaultRequiredValue: "This is a required field"
+                    isWords: "Insira um nome de produto válido",
+                    isDefaultRequiredValue: "este campo é obrigatório"
                   }}
                   required
                 />
@@ -185,8 +185,8 @@ class ProductFormPage extends React.Component {
 
               <GridTile>
                 <FormsyText
-                  hintText="Price"
-                  floatingLabelText="Price"
+                  hintText="PriPreçoce"
+                  floatingLabelText="Preço"
                   fullWidth={true}
                   name="price"
                   onChange={this.handleChange}
@@ -194,8 +194,8 @@ class ProductFormPage extends React.Component {
                     isNumeric: true
                   }}
                   validationErrors={{
-                    isNumeric: "Please provide valid price",
-                    isDefaultRequiredValue: "This is a required field"
+                    isNumeric: "Insira um preço válido",
+                    isDefaultRequiredValue: "este campo é obrigatório"
                   }}
                   value={product.unitPrice}
                   required
@@ -203,8 +203,8 @@ class ProductFormPage extends React.Component {
               </GridTile>
               <GridTile>
                 <FormsyText
-                  hintText="Quantity"
-                  floatingLabelText="Quantity"
+                  hintText="Quantidade"
+                  floatingLabelText="Quantidade"
                   fullWidth={true}
                   type="number"
                   name="quantity"
@@ -214,8 +214,8 @@ class ProductFormPage extends React.Component {
                     isInt: true
                   }}
                   validationErrors={{
-                    isInt: "Please provide a valid password",
-                    isDefaultRequiredValue: "This is a required field"
+                    isInt: "Por favor insira uma senha válida",
+                    isDefaultRequiredValue: "este campo é obrigatório"
                   }}
                   required
                 />
@@ -234,7 +234,7 @@ class ProductFormPage extends React.Component {
 
             <div style={styles.buttons}>
               <Link to="/products">
-                <RaisedButton label="Cancel" />
+                <RaisedButton label="Cancelar" />
               </Link>
 
               <RaisedButton

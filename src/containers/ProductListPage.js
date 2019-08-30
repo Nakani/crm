@@ -53,7 +53,7 @@ class ProductListPage extends React.Component {
       showCheckboxes: false,
       pageOfItems: [],
       productId: null,
-      dialogText: "Are you sure to do this?",
+      dialogText: "Você tem certeza disso?",
       search: {
         product: ""
       }
@@ -123,7 +123,7 @@ class ProductListPage extends React.Component {
   }
 
   handleOpen(id) {
-    this.setState({ dialogText: "Are you sure to delete this data?" });
+    this.setState({ dialogText: "Tem certeza de que deseja excluir esses dados?" });
     this.setState({ open: true });
     this.setState({ productId: id });
   }
@@ -226,13 +226,13 @@ class ProductListPage extends React.Component {
 
     const actions = [
       <FlatButton
-        label="Cancel"
+        label="Cancelar"
         primary={true}
         value={false}
         onTouchTap={() => this.handleClose(false)}
       />,
       <FlatButton
-        label="Confirm"
+        label="Confirmar"
         primary={true}
         value={true}
         onTouchTap={() => this.handleClose(true)}
@@ -241,8 +241,8 @@ class ProductListPage extends React.Component {
 
     return (
       <PageBase
-        title={"Products (" + productList.length + ")"}
-        navigation="React CRM / Product"
+        title={"Produtos (" + productList.length + ")"}
+        navigation=" CRM / Produtos"
       >
         <div>
           <Link to="/product">
@@ -278,19 +278,19 @@ class ProductListPage extends React.Component {
             >
               <TableRow>
                 <TableHeaderColumn style={styles.columns.name}>
-                  Product
+                  Produto
                 </TableHeaderColumn>
                 <TableHeaderColumn style={styles.columns.name}>
-                  Category
+                  Categoria
                 </TableHeaderColumn>
                 <TableHeaderColumn style={styles.columns.price}>
-                  Price
+                  Preço
                 </TableHeaderColumn>
                 <TableHeaderColumn style={styles.columns.price}>
-                  Quantity
+                  Quantidade
                 </TableHeaderColumn>
                 <TableHeaderColumn style={styles.columns.edit}>
-                  Edit
+                  Editar
                 </TableHeaderColumn>
               </TableRow>
             </TableHeader>
@@ -309,7 +309,7 @@ class ProductListPage extends React.Component {
                     {item.category ? item.category.categoryName : ""}
                   </TableRowColumn>
                   <TableRowColumn style={styles.columns.price}>
-                    AUD ${item.unitPrice}
+                    R${item.unitPrice}
                   </TableRowColumn>
                   <TableRowColumn style={styles.columns.price}>
                     {item.unitInStock}
@@ -354,7 +354,7 @@ class ProductListPage extends React.Component {
             </div>
           </div>
           <Dialog
-            title="Confirm Dialog "
+            title="Confirmar "
             actions={actions}
             modal={true}
             contentStyle={styles.dialog}
@@ -371,7 +371,7 @@ class ProductListPage extends React.Component {
           >
             {/*<AppBar title="AppBar" />*/}
             <RaisedButton
-              label="Search"
+              label="Pesquisar"
               style={styles.saveButton}
               type="button"
               onClick={this.handleSearch}
@@ -379,8 +379,8 @@ class ProductListPage extends React.Component {
             />
 
             <TextField
-              hintText="Product"
-              floatingLabelText="Product"
+              hintText="Produto"
+              floatingLabelText="Produto"
               name="product"
               fullWidth={true}
               value={this.state.search.product}

@@ -227,7 +227,7 @@ class OrderFormPage extends React.Component {
       return <CircularProgress />;
     } else {
       return (
-        <PageBase title="Order" navigation="Application / Order ">
+        <PageBase title="Venda" navigation="Application / Order ">
           <Formsy.Form
             onValid={this.enableButton}
             onInvalid={this.disableButton}
@@ -237,7 +237,7 @@ class OrderFormPage extends React.Component {
             <GridList cols={3} cellHeight={60}>
               <GridTile>
                 <FormsySelect
-                  floatingLabelText="Customer"
+                  floatingLabelText="Cliente"
                   value={order.customer ? order.customer.id : 0}
                   onChange={this.handleChange}
                   style={styles.customWidth}
@@ -260,8 +260,8 @@ class OrderFormPage extends React.Component {
               </GridTile>
               <GridTile>
                 <FormsyText
-                  hintText="Reference"
-                  floatingLabelText="Reference"
+                  hintText="ID Venda"
+                  floatingLabelText="ID Venda"
                   name="reference"
                   onChange={this.handleChange}
                   fullWidth={true}
@@ -270,8 +270,8 @@ class OrderFormPage extends React.Component {
                     isWords: true
                   }}
                   validationErrors={{
-                    isWords: "Please provide valid reference name",
-                    isDefaultRequiredValue: "This is a required field"
+                    isWords: "Insira um Id válido",
+                    isDefaultRequiredValue: "Este campo é obrigatório"
                   }}
                   required
                 />
@@ -279,8 +279,8 @@ class OrderFormPage extends React.Component {
 
               <GridTile>
                 <FormsyText
-                  hintText="Amount"
-                  floatingLabelText="Amount"
+                  hintText="Valor Total"
+                  floatingLabelText="Valor Total"
                   fullWidth={true}
                   name="price"
                   onChange={this.handleChange}
@@ -288,8 +288,8 @@ class OrderFormPage extends React.Component {
                     isNumeric: true
                   }}
                   validationErrors={{
-                    isNumeric: "Please provide valid price",
-                    isDefaultRequiredValue: "This is a required field"
+                    isNumeric: "Insira um valor válido",
+                    isDefaultRequiredValue: "Este campo é obrigatório"
                   }}
                   value={order.amount}
                   required
@@ -298,8 +298,8 @@ class OrderFormPage extends React.Component {
 
               <GridTile>
                 <FormsyText
-                  hintText="Quantity"
-                  floatingLabelText="Quantity"
+                  hintText="Quantidade"
+                  floatingLabelText="Quantidade"
                   fullWidth={true}
                   type="number"
                   name="quantity"
@@ -309,16 +309,16 @@ class OrderFormPage extends React.Component {
                     isInt: true
                   }}
                   validationErrors={{
-                    isInt: "Please provide a valid password",
-                    isDefaultRequiredValue: "This is a required field"
+                    isInt: "Insira uma quantidade correta",
+                    isDefaultRequiredValue: "Este campo é obrigatório"
                   }}
                   required
                 />
               </GridTile>
               <GridTile>
                 <FormsyDate
-                  hintText="Order Date"
-                  floatingLabelText="Order Date"
+                  hintText="Data de venda"
+                  floatingLabelText="Data de venda"
                   disabled={true}
                   name="orderDate"
                   onChange={this.handleChange}
@@ -331,8 +331,8 @@ class OrderFormPage extends React.Component {
 
               <GridTile>
                 <FormsyDate
-                  hintText="Shipped Date"
-                  floatingLabelText="Shipped Date"
+                  hintText="Data de Envio"
+                  floatingLabelText="Data de Envio"
                   fullWidth={false}
                   name="shippedDate"
                   onChange={this.handleChange}
@@ -345,8 +345,8 @@ class OrderFormPage extends React.Component {
 
               <GridTile>
                 <FormsyText
-                  hintText="Address"
-                  floatingLabelText="Address"
+                  hintText="Endereço"
+                  floatingLabelText="Endereço"
                   name="shipAddress.address"
                   onChange={this.handleChange}
                   fullWidth={true}
@@ -359,8 +359,8 @@ class OrderFormPage extends React.Component {
                     isWords: true
                   }}
                   validationErrors={{
-                    isWords: "Please provide valid address",
-                    isDefaultRequiredValue: "This is a required field"
+                    isWords: "Insira um Endereço válido",
+                    isDefaultRequiredValue: "Este campo é obrigatório"
                   }}
                   required
                 />
@@ -368,8 +368,8 @@ class OrderFormPage extends React.Component {
 
               <GridTile>
                 <FormsyText
-                  hintText="City"
-                  floatingLabelText="City"
+                  hintText="Cidade"
+                  floatingLabelText="Cidade"
                   name="reference"
                   onChange={this.handleChange}
                   fullWidth={true}
@@ -382,8 +382,8 @@ class OrderFormPage extends React.Component {
                     isWords: true
                   }}
                   validationErrors={{
-                    isWords: "Please provide valid city",
-                    isDefaultRequiredValue: "This is a required field"
+                    isWords: "Insira uma cidade válida",
+                    isDefaultRequiredValue: "Este campo é obrigatório"
                   }}
                   required
                 />
@@ -391,8 +391,8 @@ class OrderFormPage extends React.Component {
 
               <GridTile>
                 <FormsyText
-                  hintText="Country"
-                  floatingLabelText="Country"
+                  hintText="Estado"
+                  floatingLabelText="Estado"
                   name="reference"
                   onChange={this.handleChange}
                   fullWidth={true}
@@ -405,8 +405,8 @@ class OrderFormPage extends React.Component {
                     isWords: true
                   }}
                   validationErrors={{
-                    isWords: "Please provide valid country",
-                    isDefaultRequiredValue: "This is a required field"
+                    isWords: "Insira um estado válido",
+                    isDefaultRequiredValue: "Este campo é obrigatório"
                   }}
                   required
                 />
@@ -414,8 +414,8 @@ class OrderFormPage extends React.Component {
 
               <GridTile>
                 <FormsyText
-                  hintText="Zip Code"
-                  floatingLabelText="Zip Code"
+                  hintText="CEP"
+                  floatingLabelText="CEP"
                   name="reference"
                   onChange={this.handleChange}
                   fullWidth={true}
@@ -428,15 +428,15 @@ class OrderFormPage extends React.Component {
                     isWords: true
                   }}
                   validationErrors={{
-                    isWords: "Please provide valid zip code",
-                    isDefaultRequiredValue: "This is a required field"
+                    isWords: "Insira um CEP válido",
+                    isDefaultRequiredValue: "Este campo é obrigatório"
                   }}
                   required
                 />
               </GridTile>
             </GridList>
 
-            <p style={styles.productList}>Product List: </p>
+            <p style={styles.productList}>Lista de produto: </p>
             <Divider />
 
             {order.products && (
@@ -449,7 +449,7 @@ class OrderFormPage extends React.Component {
                           {product.productName}
                           <p>
                             {" "}
-                            Price: AUD ${product.unitPrice}
+                            Valor:  R${product.unitPrice}
                             <IconButton
                               style={styles.productDeleteIcon}
                               onClick={() => this.removeProduct(product)}
@@ -535,7 +535,7 @@ class OrderFormPage extends React.Component {
 
                 <span>
                   <RaisedButton onClick={this.handleCancel} color="primary">
-                    Cancel
+                    Cancelar
                   </RaisedButton>
                   <RaisedButton onClick={this.handleOk} color="primary">
                     Ok

@@ -156,7 +156,7 @@ class LoginPage extends React.Component {
         <div>
           <div style={styles.loginContainer}>
             <Paper style={styles.paper}>
-              <p style={styles.formHeader}>React Redux CRM</p>
+              <p style={styles.formHeader}>CRM for Apple Store</p>
               <p style={styles.subHeader}>Version 1.1.0</p>
               <Formsy.Form
                 onValid={this.enableButton}
@@ -175,13 +175,13 @@ class LoginPage extends React.Component {
                     isEmail: true
                   }}
                   validationErrors={{
-                    isEmail: "Please provide a valid email",
-                    isDefaultRequiredValue: "This is a required field"
+                    isEmail: "Por favor insira um E-mail válido",
+                    isDefaultRequiredValue: "Este campo é obrigatório"
                   }}
                   required
                 />
                 <FormsyText
-                  hintText="Password"
+                  hintText="Senha"
                   ref="password"
                   name="password"
                   value={this.state.password ? this.state.password : ""}
@@ -192,8 +192,8 @@ class LoginPage extends React.Component {
                     minLength: 3
                   }}
                   validationErrors={{
-                    minLength: "Please provide a valid password",
-                    isDefaultRequiredValue: "This is a required field"
+                    minLength: "Por favor, insira uma senha válida",
+                    isDefaultRequiredValue: "Este campo é obrigatório"
                   }}
                   required
                 />

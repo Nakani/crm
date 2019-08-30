@@ -125,7 +125,7 @@ class CustomerFormPage extends React.Component {
       return <CircularProgress />;
     } else {
       return (
-        <PageBase title="Customer" navigation="Application / Customer ">
+        <PageBase title="Clientes" navigation="Application / Customer ">
           <Formsy.Form
             onValid={this.enableButton}
             onInvalid={this.disableButton}
@@ -135,8 +135,8 @@ class CustomerFormPage extends React.Component {
             <GridList cellHeight={300}>
               <GridTile>
                 <FormsyText
-                  hintText="First Name"
-                  floatingLabelText="First Name"
+                  hintText=" Nome"
+                  floatingLabelText="Nome"
                   name="firstName"
                   onChange={this.handleChange}
                   fullWidth={true}
@@ -145,15 +145,15 @@ class CustomerFormPage extends React.Component {
                     isWords: true
                   }}
                   validationErrors={{
-                    isWords: "Please provide valid first name",
-                    isDefaultRequiredValue: "This is a required field"
+                    isWords: "Por favor, insira um nome válido!",
+                    isDefaultRequiredValue: "Este campo e obrigatório!"
                   }}
                   required
                 />
 
                 <FormsyText
-                  hintText="Last Name"
-                  floatingLabelText="Last Name"
+                  hintText="Sobrenome"
+                  floatingLabelText="Sobrenome"
                   fullWidth={true}
                   name="lastName"
                   onChange={this.handleChange}
@@ -161,16 +161,16 @@ class CustomerFormPage extends React.Component {
                     isWords: true
                   }}
                   validationErrors={{
-                    isWords: "Please provide valid first name",
-                    isDefaultRequiredValue: "This is a required field"
+                    isWords: "Insira um sobrenome válido",
+                    isDefaultRequiredValue: "Este campo é obrigatório"
                   }}
                   value={customer.lastName ? customer.lastName : ""}
                   required
                 />
 
                 <FormsyText
-                  hintText="Rewards"
-                  floatingLabelText="Rewards"
+                  hintText="CPF"
+                  floatingLabelText="CPF"
                   fullWidth={true}
                   type="number"
                   name="rewards"
@@ -180,15 +180,15 @@ class CustomerFormPage extends React.Component {
                     isInt: true
                   }}
                   validationErrors={{
-                    isInt: "Please provide a valid password",
-                    isDefaultRequiredValue: "This is a required field"
+                    isInt: "Por favor, insira um cpf válido",
+                    isDefaultRequiredValue: "Este campo é obrigatório"
                   }}
                   required
                 />
 
                 <div style={styles.toggleDiv}>
                   <Toggle
-                    label="Membership"
+                    label="Cliente Novo"
                     name="membership"
                     onChange={this.handleChange}
                     defaultToggled={customer.membership}
@@ -210,11 +210,11 @@ class CustomerFormPage extends React.Component {
 
             <div style={styles.buttons}>
               <Link to="/customers">
-                <RaisedButton label="Cancel" />
+                <RaisedButton label="Cancelar" />
               </Link>
 
               <RaisedButton
-                label="Save"
+                label="Salvar"
                 style={styles.saveButton}
                 type="button"
                 onClick={() => this.handleClick(event)}

@@ -28,20 +28,20 @@ const DashboardPage = () => {
           <InfoBox
             Icon={ShoppingCart}
             color={pink600}
-            title="Total Profit"
-            value="1500k"
+            title="Produtos Novos"
+            value="15"
           />
         </div>
 
         <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-15 ">
-          <InfoBox Icon={ThumbUp} color={cyan600} title="Likes" value="4231" />
+          <InfoBox Icon={ThumbUp} color={cyan600} title="Produtos Usado" value="10" />
         </div>
 
         <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-15 ">
           <InfoBox
             Icon={Assessment}
             color={purple600}
-            title="Sales"
+            title="Vendas"
             value="460"
           />
         </div>
@@ -50,7 +50,7 @@ const DashboardPage = () => {
           <InfoBox
             Icon={Face}
             color={orange600}
-            title="New Members"
+            title="Novos Clientes"
             value="248"
           />
         </div>
@@ -66,16 +66,6 @@ const DashboardPage = () => {
         </div>
       </div>
 
-      <div className="row">
-        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
-          {/*<RecentlyProducts data={Data.dashBoardPage.recentProducts}/>*/}
-          <LineBarChart data={Data.dashBoardPage.lineBarChart} />
-        </div>
-
-        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
-          <BrowserUsage data={Data.dashBoardPage.browserUsage} />
-        </div>
-      </div>
     </div>
   );
 };

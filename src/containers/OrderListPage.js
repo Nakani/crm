@@ -123,7 +123,7 @@ class OrderListPage extends React.Component {
   }
 
   handleOpen(id) {
-    this.setState({ dialogText: "Are you sure to delete this data?" });
+    this.setState({ dialogText: "Deseja apagar esse item?" });
     this.setState({ open: true });
     this.setState({ orderId: id });
   }
@@ -241,8 +241,8 @@ class OrderListPage extends React.Component {
 
     return (
       <PageBase
-        title={"Orders (" + orderList.length + ")"}
-        navigation="React CRM / Order"
+        title={"Vendas (" + orderList.length + ")"}
+        navigation=" CRM / Venda"
       >
         <div>
           <Link to="/order">
@@ -278,27 +278,27 @@ class OrderListPage extends React.Component {
             >
               <TableRow>
                 <TableHeaderColumn style={styles.columns.name}>
-                  Reference
+                  Referencia
                 </TableHeaderColumn>
                 {/*<TableHeaderColumn style={styles.columns.name}>Price</TableHeaderColumn>*/}
                 <TableHeaderColumn style={styles.columns.price}>
-                  Quantity
+                  Quantidade
                 </TableHeaderColumn>
                 <TableHeaderColumn style={styles.columns.price}>
-                  Amount
+                  Valor Total
                 </TableHeaderColumn>
                 <TableHeaderColumn style={styles.columns.price}>
-                  Order Date
+                  Data de Venda
                 </TableHeaderColumn>
                 <TableHeaderColumn style={styles.columns.price}>
-                  Shipped Date
+                  Data de Envio
                 </TableHeaderColumn>
                 <TableHeaderColumn style={styles.columns.name}>
-                  Customer
+                  Cliente
                 </TableHeaderColumn>
                 {/*<TableHeaderColumn style={styles.columns.category}>Membership</TableHeaderColumn>*/}
                 <TableHeaderColumn style={styles.columns.edit}>
-                  Edit
+                  Editar
                 </TableHeaderColumn>
               </TableRow>
             </TableHeader>
@@ -317,7 +317,7 @@ class OrderListPage extends React.Component {
                     {item.products.length}
                   </TableRowColumn>
                   <TableRowColumn style={styles.columns.price}>
-                    AUD ${item.amount}
+                     R${item.amount}
                   </TableRowColumn>
                   <TableRowColumn style={styles.columns.price}>
                     {item.orderDate}
@@ -371,7 +371,7 @@ class OrderListPage extends React.Component {
             </div>
           </div>
           <Dialog
-            title="Confirm Dialog "
+            title="Confirmar"
             actions={actions}
             modal={true}
             contentStyle={styles.dialog}
@@ -388,7 +388,7 @@ class OrderListPage extends React.Component {
           >
             {/*<AppBar title="AppBar" />*/}
             <RaisedButton
-              label="Search"
+              label="Pesquisar"
               style={styles.saveButton}
               type="button"
               onClick={this.handleSearch}
@@ -396,8 +396,8 @@ class OrderListPage extends React.Component {
             />
 
             <TextField
-              hintText="Product"
-              floatingLabelText="Product"
+              hintText="Produtos"
+              floatingLabelText="Produtos"
               name="product"
               fullWidth={true}
               value={this.state.search.product}
