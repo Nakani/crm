@@ -12,9 +12,9 @@ import ShoppingCart from "material-ui/svg-icons/action/shopping-cart";
 import InfoBox from "../components/dashboard/InfoBox";
 import NewOrders from "../components/dashboard/NewOrders";
 import MonthlySales from "../components/dashboard/MonthlySales";
-import BrowserUsage from "../components/dashboard/BrowserUsage";
+//import BrowserUsage from "../components/dashboard/BrowserUsage";
 // import RecentlyProducts from '../components/dashboard/RecentlyProducts';
-import LineBarChart from "../components/dashboard/LineBarChart";
+//import LineBarChart from "../components/dashboard/LineBarChart";
 import globalStyles from "../styles";
 import Data from "../data";
 
