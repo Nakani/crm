@@ -1,37 +1,12 @@
-/* eslint-disable import/default */
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import * as serviceWorker from './serviceWorker';
 
-import React from "react";
-import { render } from "react-dom";
-import { Provider } from "react-redux";
-import { createStore, applyMiddleware } from "redux";
-// import getMuiTheme from 'material-ui/styles/getMuiTheme'
-// import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import { Router, browserHistory } from "react-router";
-import routes from "./routes";
-import injectTapEventPlugin from "react-tap-event-plugin";
-require("./favicon.ico");
-import "./styles.scss";
-import "font-awesome/css/font-awesome.css";
-import "flexboxgrid/css/flexboxgrid.css";
+ReactDOM.render(<App />, document.getElementById('root'));
 
-import thunkMiddleware from "redux-thunk";
-import api from "./middleware/api";
-
-import reducers from "./reducers";
-
-injectTapEventPlugin();
-
-const createStoreWithMiddleware = applyMiddleware(thunkMiddleware, api)(
-  createStore
-);
-
-const store = createStoreWithMiddleware(reducers);
-
-render(
-  <Provider store={store}>
-    {/*<MuiThemeProvider muiTheme={getMuiTheme()}>*/}
-    <Router routes={routes} history={browserHistory} />
-    {/*</MuiThemeProvider>*/}
-  </Provider>,
-  document.getElementById("root")
-);
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();

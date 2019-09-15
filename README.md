@@ -1,103 +1,68 @@
-# React Redux CRM
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-> A reusable CRM project for real-world business based on React 15.4, React-Redux & Material-UI
+## Available Scripts
 
-This is the very first version, feel free to use for any app. Contributions are always welcome!
+In the project directory, you can run:
 
-The goal of this starter project is to create reusable project for real-world business. To achieve this target, we need a solution which should include simple authentication process, restful API with token support and simple but elegant UI design.
+### `npm start`
 
-### Features
+Runs the app in the development mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-- This project is built on the top of React/Redux.
-- The UI part of this project uses Material-UI.
-- This project uses Redux-Thunk to support back-end API.
-- ~~To simulate real-world business, this starter project chooses Json-Server as fake Restful API. (You can simple replace it with your own API)~~
+The page will reload if you make edits.<br>
+You will also see any lint errors in the console.
 
-* Fake API is just readonly fake service.
-* CRUD functions for Customer, Order and Product
+### `npm test`
 
-### Live Demo
+Launches the test runner in the interactive watch mode.<br>
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-[Demo](https://react-app-demo.harryho.org) The demo is just a proof of concept. It doesn't have back-end API and all features of master branch.
+### `npm run build`
 
-### Screenshots
+Builds the app for production to the `build` folder.<br>
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-![Screenshot1](screenshots/screenshot-1.jpg)
+The build is minified and the filenames include the hashes.<br>
+Your app is ready to be deployed!
 
-![Screenshot2](screenshots/screenshot-2.jpg)
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-![Screenshot3](screenshots/screenshot-3.jpg)
+### `npm run eject`
 
-![Screenshot4](screenshots/screenshot-4.jpg)
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-## Build Setup
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-```bash
-# Clone project
-git clone https://github.com/harryho/react-crm.git
+Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-# install the packages with npm
-cd react-crm
-npm install
+## Learn More
 
-# start the server with hot reload at localhost:4000
-npm run start
-# or yarn
-yarn start
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-## You might see sth below.
-#
-# [Browsersync] Access URLs:
-#  ------------------------------------
-#        Local: http://localhost:4000
-#     External: http://192.168.1.5:4000
-#  ------------------------------------
-#           UI: http://localhost:4001
-#  UI External: http://localhost:4001
-#  ------------------------------------
-# [Browsersync] Serving files from: src
-# [Browsersync] Watching files...
-# webpack: wait until bundle finished: /index.html
-# webpack built de2fee97ada8c77dde8e in 10556ms
-# Child html-webpack-plugin for "index.html":
+### Code Splitting
 
+This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
 
-## development
-npm run demo
-# or yarn
-yarn demo
+### Analyzing the Bundle Size
 
-## build for dev
-npm run build
+This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
 
-## build for production
-npm run build --mode production
-```
+### Making a Progressive Web App
 
-## Welcome to fork or clone!
+This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
 
-For detailed explanation on how things work, checkout following links please.
+### Advanced Configuration
 
-- [React](https://facebook.github.io/react/)
-- [Redux](http://redux.js.org/)
-- [Material-UI](http://www.material-ui.com/)
+This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
 
-### Alternatives
+### Deployment
 
-There are another two similar projects respectively built on the Vue.js and Angular. If you have interests in those technical stacks. You can find and clone those repositories below.
+This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
 
-- [Ng-MD-App](https://github.com/harryho/ng-md-app.git).
-- [Ng4Crm](https://github.com/harryho/ng4crm.git). (It is no longer maintained with latest Angular)
-- [Vue2Crm](https://github.com/harryho/vue2crm.git).
+### `npm run build` fails to minify
 
-### Change log
-
-- Rebase demo branch to master
-
-  New master doesn't rely on Json-Server as fake API. It will only have Readonly fake API. It means any new or updated data will be stored to any physical file. All test data will be rolled back after system restart.
-
-- Create an archived branch json-server
-
-  This branch was the master which used Json-Server as fake API. Considering the hiccup of setting Json-Server up and maintenance, it will be replaced by fake service ( Readonly fake API). You still can find clone this branch by branch name **json-server**, but it will be no longer updated. It is an archived branch.
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
