@@ -1,28 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import MaterialTable from 'material-table';
+const firebase = require('firebase');
+// Required for side-effects
+require('firebase/firestore');
 
 export default function Table() {
-  const [state, setState] = React.useState({
-    columns: [
-      { title: 'Nome', field: 'nome' },
-      { title: 'IMEI', field: 'imei' },
-      { title: 'Data', field: 'data'},
-    ],
-    data: [
-      { nome: 'Iphone 5s', imei: '89209310120983', data: '19/09/2019'},
-      {
-        nome: 'Iphone 6s',
-        imei: '03821093812099',
-        data: '20/09/2019',
-      },
-    ],
-  });
+  const columns = [
+    { title: 'Nome', field: 'name' },
+    { title: 'IMEI', field: 'imei' },
+    { title: 'Data', field: 'date' }
+  ];
+  const [data, setData] = useState([])
+
+  const getData = event => {
+    firebase.initializeApp({
+      apiKey: 'AIzaSyDzf4lG8KCLZGZUIjKqcI_z8sCLGAzbEOE',
+      authDomain: 'crmapple-97bfd.firebaseapp.com',
+      projectId: 'crmapple-97bfd'
+    });
+
+    var db = firebase.firestore();
+    db.collection('produto')
+      .get()
+      .then(querySnapshot => {
+        setData(querySnapshot.docs.map(doc => doc.data()));
+      });
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
-    <MaterialTable
-      title="Lista"
-      columns={state.columns}
-      data={state.data}
-    />
+    <MaterialTable title="Lista" columns={columns} data={data} />
   );
 }
