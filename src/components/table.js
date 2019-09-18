@@ -7,10 +7,10 @@ require('firebase/firestore');
 export default function Table() {
   const columns = [
     { title: 'Nome', field: 'name' },
-    { title: 'IMEI', field: 'imei' },
+    { title: 'UPC', field: 'upc' },
     { title: 'Data', field: 'date' }
   ];
-  const [data, setData] = useState([])
+  const [data, setData] = useState([]);
 
   const getData = event => {
     firebase.initializeApp({
@@ -32,6 +32,19 @@ export default function Table() {
   }, []);
 
   return (
-    <MaterialTable title="Lista" columns={columns} data={data} />
+    <MaterialTable
+      title="Lista"
+      columns={columns}
+      data={data}
+      actions={[
+        {
+          icon: 'note_add',
+          tooltip: 'Adicionar IMEIS',
+          onClick: (event, rowData) => {
+            console.log( rowData)
+          }
+        }
+      ]}
+    />
   );
 }

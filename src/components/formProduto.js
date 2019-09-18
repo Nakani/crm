@@ -30,23 +30,24 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function FormProduto(props) {
+export default function FormProduto() {
   const classes = useStyles();
-  const [values, setValues] = useState({ name: '', imei: '' });
+  const [values, setValues] = useState({ name: '', upc: '' });
 
-  const handleSubmit = event => {
-
+  const handleSubmit = () => {
     var db = firebase.firestore();
     db.collection('produto')
       .add({
         name: values.name,
-        imei: values.imei,
+        upc: values.upc,
         date: Date.now()
       })
       .then(function(docRef) {
+        alert('Adicionado com sucesso');
         console.log('Document written with ID: ', docRef.id);
       })
       .catch(function(error) {
+        alert('Ocorreu um erro, tente novamente');
         console.error('Error adding document: ', error);
       });
   };
@@ -80,9 +81,9 @@ export default function FormProduto(props) {
             required
             fullWidth
             onChange={handleInputChange}
-            name="imei"
-            label="IMEI"
-            id="imei"
+            name="upc"
+            label="UPC"
+            id="upc"
           />
           <Button
             type="button"
@@ -92,7 +93,7 @@ export default function FormProduto(props) {
             className={classes.submit}
             onClick={handleSubmit}
           >
-            Salvar
+            Adicionar
           </Button>
         </form>
       </div>
