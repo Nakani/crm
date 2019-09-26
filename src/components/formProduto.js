@@ -5,6 +5,9 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import{getName} from '../services/requisitions'
+
+
 const firebase = require('firebase');
 // Required for side-effects
 require('firebase/firestore');
@@ -32,24 +35,28 @@ const useStyles = makeStyles(theme => ({
 
 export default function FormProduto() {
   const classes = useStyles();
-  const [values, setValues] = useState({ name: '', upc: '' });
+  const [values, setValues] = useState({upc: '' });
 
   const handleSubmit = () => {
     var db = firebase.firestore();
-    db.collection('produto')
-      .add({
-        name: values.name,
-        upc: values.upc,
-        date: Date.now()
-      })
-      .then(function(docRef) {
-        alert('Adicionado com sucesso');
-        console.log('Document written with ID: ', docRef.id);
-      })
-      .catch(function(error) {
-        alert('Ocorreu um erro, tente novamente');
-        console.error('Error adding document: ', error);
-      });
+
+  const resultName = getName(values.upc)
+  console.log(resultName)
+
+    // db.collection('produto')
+    //   .add({
+    //     name: values.name,
+    //     upc: values.upc,
+    //     date: Date.now()
+    //   })
+    //   .then(function(docRef) {
+    //     alert('Adicionado com sucesso');
+    //     console.log('Document written with ID: ', docRef.id);
+    //   })
+    //   .catch(function(error) {
+    //     alert('Ocorreu um erro, tente novamente');
+    //     console.error('Error adding document: ', error);
+    //   });
   };
 
   const handleInputChange = e => {
@@ -65,16 +72,7 @@ export default function FormProduto() {
           Novo produto
         </Typography>
         <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            onChange={handleInputChange}
-            id="name"
-            label="Nome"
-            name="name"
-          />
+
           <TextField
             variant="outlined"
             margin="normal"
