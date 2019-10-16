@@ -5,43 +5,22 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import{getName} from '../services/requisitions'
+import { getName } from '../services/requisitions'
 
 
 const firebase = require('firebase');
 // Required for side-effects
 require('firebase/firestore');
 
-const useStyles = makeStyles(theme => ({
-  '@global': {
-    body: {
-      backgroundColor: theme.palette.common.white
-    }
-  },
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1)
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2)
-  }
-}));
-
 export default function FormProduto() {
   const classes = useStyles();
-  const [values, setValues] = useState({upc: '' });
+  const [values, setValues] = useState({ upc: '' });
 
   const handleSubmit = () => {
     var db = firebase.firestore();
 
-  const resultName = getName(values.upc)
-  console.log(resultName)
+    const resultName = getName(values.upc)
+    console.log(resultName)
 
     // db.collection('produto')
     //   .add({
@@ -98,3 +77,24 @@ export default function FormProduto() {
     </Container>
   );
 }
+
+const useStyles = makeStyles(theme => ({
+  '@global': {
+    body: {
+      backgroundColor: theme.palette.common.white
+    }
+  },
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(1)
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2)
+  }
+}));
