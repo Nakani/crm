@@ -25,7 +25,7 @@ function addImei(data) {
       imei: data.imei,
       upcId: data.upcId,
       date: moment().format('DD-MM-YYYY'),
-      situacao: '0'
+      situacao: 'estoque'
     }
     const result = await db.ref('products').push(imei)
     res(result)

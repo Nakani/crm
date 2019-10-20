@@ -6,6 +6,7 @@ export default function TableImei(props) {
     const { data, history, dataUpc } = props
     const columns = [
         { title: 'Imei', field: 'imei' },
+        { title: 'Data entrada', field: 'date' },
         { title: 'Situação', field: 'situacao' }
     ];
     const [list, setlist] = useState([]);
