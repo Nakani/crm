@@ -1,29 +1,113 @@
-const firebase = require('firebase');
-// Required for side-effects
-require('firebase/firestore');
+import firebase from 'firebase';
+import { firebaseConfig } from './config-firebase'
+import moment from "moment";
+const app = firebase.initializeApp(firebaseConfig)
+const db = app.database()
 
-firebase.initializeApp({
-  apiKey: 'AIzaSyDzf4lG8KCLZGZUIjKqcI_z8sCLGAzbEOE',
-  authDomain: 'crmapple-97bfd.firebaseapp.com',
-  projectId: 'crmapple-97bfd'
-});
+function addUpc(data) {
+  return new Promise(async res => {
 
-const firebase.firestore();
-this.db = firebase.firestore();
+    const upc = {
+      name: data.name,
+      color: data.color,
+      upc: data.upc,
+      date: moment().format('DD-MM-YYYY'),
+    }
+    const result = await db.ref('upcs').push(upc)
+    res(result)
+  })
+}
 
-export const addProduct = () => {
-  db.collection('produto')
-    .add({
-      name: values.name,
-      upc: values.upc,
-      date: Date.now()
-    })
-    .then(function (docRef) {
-      alert('Adicionado com sucesso');
-      console.log('Document written with ID: ', docRef.id);
-    })
-    .catch(function (error) {
-      alert('Ocorreu um erro, tente novamente');
-      console.error('Error adding document: ', error);
-    });
-};
+function addImei(data) {
+  return new Promise(async res => {
+
+    const imei = {
+      imei: data.imei,
+      upcId: data.upcId,
+      date: moment().format('DD-MM-YYYY'),
+      situacao: '0'
+    }
+    const result = await db.ref('products').push(imei)
+    res(result)
+  })
+}
+
+
+function getUpcs() {
+  return new Promise(res => {
+    db.ref('upcs')
+      .on('value', snap => {
+        const results = snap.val()
+        const resultArray = []
+        if (results) {
+          Object.keys(results).map(async upc => {
+            try {
+              resultArray.push({
+                ...results[upc],
+                upcId: upc,
+              })
+            } catch (err) {
+              console.log('get upcs error', err)
+            }
+          })
+        }
+        res(resultArray)
+      })
+  })
+}
+
+function getProducts(upcId) {
+  return new Promise(res => {
+    db.ref('products').orderByChild("upcId").equalTo(upcId)
+      .on('value', snap => {
+        const results = snap.val()
+        const resultArray = []
+        if (results) {
+          Object.keys(results).map(async product => {
+            try {
+              resultArray.push({
+                ...results[product],
+                productId: product,
+              })
+            } catch (err) {
+              console.log('get products error', err)
+            }
+          })
+        }
+        console.log(resultArray)
+        res(resultArray)
+      })
+  })
+}
+
+function getUpcByID(id) {
+  return new Promise(res => {
+    db.ref(`upcs/${id}`)
+      .on('value', snap => {
+        const results = snap.val()
+        const resultArray = []
+        resultArray.push({
+          ...results,
+          upcId: id,
+        })
+        res(results)
+      })
+  })
+}
+
+function deleteImei(id) {
+  db.ref('products').child(id).remove();
+}
+function deleteUpc(id) {
+  db.ref('upcs').child(id).remove();
+}
+
+export const database = {
+  addUpc,
+  getProducts,
+  getUpcs,
+  getUpcByID,
+  addImei,
+  deleteImei,
+  deleteUpc
+}

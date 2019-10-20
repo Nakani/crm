@@ -1,7 +1,10 @@
 import { combineReducers } from 'redux'
+import productsReducer from './products/product.reducer'
+import imeisReducer from './products/imei.reducer'
 
 const rootReducer = combineReducers({
-  // lists: listReducer,
+  productsReducer,
+  imeisReducer
 })
 
 export default rootReducer

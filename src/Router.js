@@ -1,12 +1,17 @@
 import React from "react";
 import { Route, IndexRoute } from "react-router";
+import { useHistory } from "react-router-dom";
 
 import Products from './screens/product'
+import Imeis from './screens/product/imei'
+
+
 
 const Router = () => (
     <>
         <Route path="/" exact={true} component={Products} />
         <Route path="/products" component={Products} />
+        <Route path="/imeis/:upc" component={Imeis} />
         {/* <IndexRoute component={Dashboard} />
         <Route path="dashboard" component={Dashboard} />
         <Route path="form" component={FormPage} />

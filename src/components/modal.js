@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
+import Button from '@material-ui/core/Button';
 import FormProduto from './formProduto';
 
 function rand() {
@@ -29,7 +30,8 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function SimpleModal() {
+export default function SimpleModal(props) {
+
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
@@ -42,12 +44,11 @@ export default function SimpleModal() {
   const handleClose = () => {
     setOpen(false);
   };
-
   return (
     <div>
-      <button type="button" onClick={handleOpen}>
-        Novo produto
-      </button>
+      <Button variant="outlined" color="primary" onClick={handleOpen}>
+        Adicionar novo Imei
+      </Button>
       <Modal
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
@@ -55,7 +56,7 @@ export default function SimpleModal() {
         onClose={handleClose}
       >
         <div style={modalStyle} className={classes.paper}>
-          <FormProduto />
+          <FormProduto data={props} />
         </div>
       </Modal>
     </div>

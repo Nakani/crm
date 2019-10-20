@@ -5,42 +5,22 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { getName } from '../services/requisitions'
+import { database } from '../services/database'
 
 
-const firebase = require('firebase');
-// Required for side-effects
-require('firebase/firestore');
-
-export default function FormProduto() {
+export default function FormProduto(props) {
   const classes = useStyles();
-  const [values, setValues] = useState({ upc: '' });
+  const [values, setValues] = useState();
+  const [fields, setFields] = useState([{ imei: '', }]);
+  const [imeis, setImei] = useState([])
 
-  const handleSubmit = () => {
-    var db = firebase.firestore();
-
-    const resultName = getName(values.upc)
-    console.log(resultName)
-
-    // db.collection('produto')
-    //   .add({
-    //     name: values.name,
-    //     upc: values.upc,
-    //     date: Date.now()
-    //   })
-    //   .then(function(docRef) {
-    //     alert('Adicionado com sucesso');
-    //     console.log('Document written with ID: ', docRef.id);
-    //   })
-    //   .catch(function(error) {
-    //     alert('Ocorreu um erro, tente novamente');
-    //     console.error('Error adding document: ', error);
-    //   });
+  const handleAdd = () => {
+    database.addImei(values)
   };
 
   const handleInputChange = e => {
     const { name, value } = e.target;
-    setValues({ ...values, [name]: value });
+    setValues({ imei: value, upcId: props.data.data });
   };
 
   return (
@@ -55,12 +35,14 @@ export default function FormProduto() {
           <TextField
             variant="outlined"
             margin="normal"
+            type="number"
             required
             fullWidth
             onChange={handleInputChange}
-            name="upc"
-            label="UPC"
-            id="upc"
+            name="imei"
+            label="imei"
+            id="imei"
+            value={fields.imei}
           />
           <Button
             type="button"
@@ -68,7 +50,7 @@ export default function FormProduto() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={handleSubmit}
+            onClick={handleAdd}
           >
             Adicionar
           </Button>

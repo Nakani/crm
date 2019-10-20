@@ -1,50 +1,45 @@
 import React, { useEffect, useState } from 'react';
 import MaterialTable from 'material-table';
-const firebase = require('firebase');
-// Required for side-effects
-require('firebase/firestore');
+import { database } from '../services/database'
+import moment from "moment";
 
-export default function Table() {
+export default function Table(props) {
+  const { data, history, typeTable } = props
   const columns = [
     { title: 'Nome', field: 'name' },
     { title: 'UPC', field: 'upc' },
     { title: 'Data', field: 'date' }
   ];
-  const [data, setData] = useState([]);
-
-  const getData = event => {
-    firebase.initializeApp({
-      apiKey: 'AIzaSyDzf4lG8KCLZGZUIjKqcI_z8sCLGAzbEOE',
-      authDomain: 'crmapple-97bfd.firebaseapp.com',
-      projectId: 'crmapple-97bfd'
-    });
-
-    var db = firebase.firestore();
-    db.collection('produto')
-      .get()
-      .then(querySnapshot => {
-        setData(querySnapshot.docs.map(doc => doc.data()));
-      });
-  };
+  const [list, setlist] = useState([]);
 
   useEffect(() => {
-    getData();
-  }, []);
+    if (data != null) {
+      setlist(data.products)
+    }
+  }, [data]);
 
   return (
     <MaterialTable
-      title="Lista"
+      title='Lista de UPC'
       columns={columns}
-      data={data}
-      actions={[
-        {
-          icon: 'note_add',
-          tooltip: 'Adicionar IMEIS',
-          onClick: (event, rowData) => {
-            console.log( rowData)
+      data={list}
+      actions={
+        [
+          {
+            icon: 'note_add',
+            tooltip: 'Adicionar IMEIS',
+            onClick: (event, rowData) => {
+              history.push('/imeis/' + rowData.upcId);
+            }
+          },
+          {
+            icon: 'delete',
+            tooltip: 'Apagar Upc',
+            onClick: (event, rowData) => {
+              database.deleteUpc(rowData.upcId)
+            }
           }
-        }
-      ]}
+        ]}
     />
   );
 }
