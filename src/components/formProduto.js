@@ -13,15 +13,25 @@ export default function FormProduto(props) {
   const [values, setValues] = useState();
   const [fields, setFields] = useState([{ imei: '', }]);
   const [imeis, setImei] = useState([])
+  const [block, setBlock] = useState('disabled')
 
   const handleAdd = () => {
-   let result = database.addImei(values)
-   console.log(result)
-  };   
+    console.log(values)
+    if (values != null && values.imei.length == 15) {
+      console.log('foi')
+      database.addImei(values)
+    } else { console.log('nao foi') }
+  };
 
   const handleInputChange = e => {
     const { name, value } = e.target;
-    setValues({ imei: value, upcId: props.data.data });
+    setValues({ imei: value, upcId: props.data.data })
+    if (value.length == 15) {
+      console.log(value)
+      let dados = { imei: value, upcId: props.data.data }
+      database.addImei(dados)
+      handleAdd()
+    }
   };
 
   return (
@@ -31,30 +41,31 @@ export default function FormProduto(props) {
         <Typography component="h1" variant="h5">
           Novo produto
         </Typography>
+        <TextField
+          variant="outlined"
+          margin="normal"
+          type="number"
+          required
+          fullWidth
+          onChange={handleInputChange}
+          name="imei"
+          label="imei"
+          id="imei"
+          value={fields.imei}
+        />
+        <Button
+          {...block}
+          type="button"
+          fullWidth
+          variant="contained"
+          color="primary"
+          className={classes.submit}
+          onClick={handleAdd}
+        >
+          Adicionar
+          </Button>
         <form className={classes.form} noValidate>
 
-          <TextField
-            variant="outlined"
-            margin="normal"
-            type="number"
-            required
-            fullWidth
-            onChange={handleInputChange}
-            name="imei"
-            label="imei"
-            id="imei"
-            value={fields.imei}
-          />
-          <Button
-            type="button"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={handleAdd}
-          >
-            Adicionar
-          </Button>
         </form>
       </div>
     </Container>

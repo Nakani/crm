@@ -22,12 +22,11 @@ export default function Imeis(props) {
         getUpcById(dispatch, upc)
     }, [])
 
-    useEffect(() => {
-        setlists(imeis.imeis)
-    }, [imeis])
+    // useEffect(() => {
+    //     setlists(imeis.imeis)
+    // }, [imeis])
 
     useEffect(() => {
-
         setUpc(imeis.upc)
     }, [imeis])
     return (
