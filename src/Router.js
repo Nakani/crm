@@ -1,7 +1,5 @@
 import React from "react";
 import { Route, IndexRoute } from "react-router";
-import { useHistory } from "react-router-dom";
-
 import Products from './screens/product'
 import Imeis from './screens/product/imei'
 

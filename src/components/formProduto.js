@@ -15,8 +15,9 @@ export default function FormProduto(props) {
   const [imeis, setImei] = useState([])
 
   const handleAdd = () => {
-    database.addImei(values)
-  };
+   let result = database.addImei(values)
+   console.log(result)
+  };   
 
   const handleInputChange = e => {
     const { name, value } = e.target;

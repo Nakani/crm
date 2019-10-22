@@ -16,7 +16,6 @@ export default function Imeis(props) {
     const dispatch = useDispatch()
 
     useEffect(async () => {
-        //getListsImei(dispatch, upc)
         const imeis = await database.getProducts(upc)
         console.log(imeis)
         setlists(imeis)

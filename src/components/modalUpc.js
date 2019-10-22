@@ -47,7 +47,7 @@ export default function SimpleModal(props) {
     return (
         <div>
             <Button variant="outlined" color="primary" onClick={handleOpen}>
-                Adicionar novo upc
+                Adicionar novo Produto
       </Button>
             <Modal
                 aria-labelledby="simple-modal-title"

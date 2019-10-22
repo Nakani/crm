@@ -9,8 +9,9 @@ function addUpc(data) {
 
     const upc = {
       name: data.name,
-      color: data.color,
-      upc: data.upc,
+      custo: data.custo,
+      valor: data.valor,
+      lucro: data.valor - data.custo,
       date: moment().format('DD-MM-YYYY'),
     }
     const result = await db.ref('upcs').push(upc)
@@ -42,19 +43,25 @@ function getUpcs() {
         if (results) {
           Object.keys(results).map(async upc => {
             try {
+            // let imeis = await getProducts(upc)
+             // console.log(imeis.length)
+             //let totalImei = imeis.length
               resultArray.push({
                 ...results[upc],
                 upcId: upc,
+               //quantTotal:String(quantTotal)
               })
             } catch (err) {
               console.log('get upcs error', err)
             }
           })
         }
+        console.log(resultArray)
         res(resultArray)
       })
   })
 }
+
 
 function getProducts(upcId) {
   return new Promise(res => {

@@ -9,6 +9,7 @@ import { database } from '../services/database'
 import color from '@material-ui/core/colors/grey';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import NumberFormat from 'react-number-format';
 
 
 export default function FormProdutoUpc(props) {
@@ -16,17 +17,17 @@ export default function FormProdutoUpc(props) {
     const [values, setValues] = useState([]);
 
     const handleAdd = async () => {
-        if (values.upc && values.name) {
+        if (values.custo && values.name) {
             const result = await database.addUpc(values)
+            console.log(result.key)
             if (result.key != null) {
-                props.data.history.push('/imeis/' + values.upc);
+                props.data.history.push('/imeis/' + result.key);
             }
         } else {
-            alert('Por favor preencha o UPC e o nome!')
+            alert('Por favor preencha  o nome e o custo!')
         }
-
     };
-
+    
     const handleInputChange = e => {
         const { name, value } = e.target;
         setValues({ ...values, [name]: value });
@@ -37,7 +38,7 @@ export default function FormProdutoUpc(props) {
             <CssBaseline />
             <div className={classes.paper}>
                 <Typography component="h1" variant="h5">
-                    Novo Upc
+                    Novo Produto
         </Typography>
                 <form className={classes.form} noValidate>
 
@@ -49,7 +50,7 @@ export default function FormProdutoUpc(props) {
                         fullWidth
                         onChange={handleInputChange}
                         name="name"
-                        label="Nome Upc"
+                        label="Nome Produto"
                         id="name"
 
                     />
@@ -57,15 +58,16 @@ export default function FormProdutoUpc(props) {
                     <TextField
                         variant="outlined"
                         margin="normal"
-                        type="text"
+                        type="number"
                         required
                         fullWidth
                         onChange={handleInputChange}
-                        name="color"
-                        label="Cor"
-                        id="color"
+                        name="custo"
+                        label="Custo"
+                        id="custo"
                     />
 
+                    
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -73,45 +75,11 @@ export default function FormProdutoUpc(props) {
                         required
                         fullWidth
                         onChange={handleInputChange}
-                        name="upc"
-                        label="UPC"
-                        id="upc"
+                        name="valor"
+                        label="Valor"
+                        id="valor"
                     />
 
-                    <Select
-                        select
-                        variant="outlined"
-                        margin="normal"
-                        type="number"
-                        value={values.tipo}
-                        fullWidth
-                        onChange={handleInputChange}
-                        name="tipo"
-                        label="Tipo"
-                        id="typeProduct"
-                    >
-                        <MenuItem value={0}>Novo</MenuItem>
-                        <MenuItem value={1}>Semi-novo</MenuItem>
-                        <MenuItem value={2}>Outros</MenuItem>
-                    </Select>
-                    <Select
-                        select
-                        variant="outlined"
-                        margin="normal"
-                        type="number"
-                        value={values.category}
-                        fullWidth
-                        onChange={handleInputChange}
-                        name="category"
-                        label="Categoria"
-                        id="category"
-                    >
-                        <MenuItem value={0}>iphone</MenuItem>
-                        <MenuItem value={1}>Watch</MenuItem>
-                        <MenuItem value={2}>Ipad</MenuItem>
-                        <MenuItem value={3}>Mac</MenuItem>
-                        <MenuItem value={4}>Acessórios</MenuItem>
-                    </Select>
                     <Button
                         type="button"
                         fullWidth
