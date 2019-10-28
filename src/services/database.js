@@ -9,47 +9,46 @@ function addUpc(data) {
 
     const upc = {
       name: data.name,
-      custo: data.custo,
-      valor: data.valor,
+      custo: parseInt(data.custo),
+      valor: parseInt(data.valor),
       lucro: data.valor - data.custo,
       date: moment().format('DD-MM-YYYY'),
     }
     const result = await db.ref('upcs').push(upc)
+    alert('Adicionado com sucesso!')
     res(result)
   })
 }
 
 function addImei(data) {
-  return new Promise(async res => {
+  // return new Promise(async res => {
 
-    const imei = {
-      imei: data.imei,
-      upcId: data.upcId,
-      date: moment().format('DD-MM-YYYY'),
-      situacao: 'estoque'
-    }
-    const result = await db.ref('products').push(imei)
-    res(result)
-  })
+  const imei = {
+    imei: data.imei,
+    upcId: data.upcId,
+    date: moment().format('DD-MM-YYYY'),
+    situacao: 'estoque'
+  }
+  const result = db.ref(`upcs/${data.upcId}/products`).push(imei)
+  return result
+  //})
 }
 
-
 function getUpcs() {
+  console.log('inicio database')
   return new Promise(res => {
     db.ref('upcs')
       .on('value', snap => {
         const results = snap.val()
+        console.log(results)
         const resultArray = []
         if (results) {
           Object.keys(results).map(async upc => {
             try {
-            // let imeis = await getProducts(upc)
-             // console.log(imeis.length)
-             //let totalImei = imeis.length
               resultArray.push({
                 ...results[upc],
                 upcId: upc,
-               //quantTotal:String(quantTotal)
+                quantTotal: countImeis(results[upc].products)
               })
             } catch (err) {
               console.log('get upcs error', err)
@@ -62,10 +61,9 @@ function getUpcs() {
   })
 }
 
-
 function getProducts(upcId) {
   return new Promise(res => {
-    db.ref('products').orderByChild("upcId").equalTo(upcId)
+    db.ref(`upcs/${upcId}/products`)
       .on('value', snap => {
         const results = snap.val()
         const resultArray = []
@@ -92,22 +90,67 @@ function getUpcByID(id) {
     db.ref(`upcs/${id}`)
       .on('value', snap => {
         const results = snap.val()
-        const resultArray = []
-        resultArray.push({
-          ...results,
+        const resultArray = {
+          nameUpc: results.name,
           upcId: id,
-        })
-        res(results)
+        }
+
+        res(resultArray)
       })
   })
 }
 
-function deleteImei(id) {
-  db.ref('products').child(id).remove();
+function deleteImei(data) {
+  console.log()
+  db.ref(`upcs/${data.upcId}/products`).child(data.productId).remove();
+  alert('Apagado com sucesso!')
+  return true
 }
+
 function deleteUpc(id) {
   db.ref('upcs').child(id).remove();
+  alert('Apagado com sucesso!')
+  return true
 }
+
+function lucroTotalProducts() {
+  return new Promise(res => {
+    db.ref('upcs')
+      .on('value', snap => {
+        const results = snap.val()
+        const resultArray = []
+        const lucro = ''
+        if (results) {
+          Object.keys(results).map(async upc => {
+            try {
+              lucro = results[upc].lucro + lucro
+
+              resultArray.push({
+                ...results[upc],
+                upcId: upc,
+                quantTotal: countImeis(results[upc].products)
+              })
+
+
+            } catch (err) {
+              console.log('get upcs error', err)
+            }
+          })
+        }
+        console.log(lucro)
+        res(lucro)
+      })
+  })
+}
+
+function countImeis(imeis) {
+  if (imeis) {
+    return Object.keys(imeis).length
+  }
+  return 0
+}
+
+
 
 export const database = {
   addUpc,
@@ -116,5 +159,6 @@ export const database = {
   getUpcByID,
   addImei,
   deleteImei,
-  deleteUpc
+  deleteUpc,
+  lucroTotalProducts
 }

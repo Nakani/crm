@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from './components/header';
-import Table from './components/table';
+import Table from './components/Table/Table';
 import Login from './components/login';
 
 function App() {
