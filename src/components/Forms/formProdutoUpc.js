@@ -5,11 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import color from '@material-ui/core/colors/grey';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import NumberFormat from 'react-number-format';
-
+import { formatValor } from '../../utils/formatNumber'
 
 export default function FormProdutoUpc(props) {
     const classes = useStyles();
@@ -26,13 +22,20 @@ export default function FormProdutoUpc(props) {
         setValues({ ...values, [name]: value });
     };
 
+    const handleChangeFormat = name => event => {
+        setValues({
+            ...values,
+            [name]: formatValor(event.target.value),
+        });
+    };
+
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
             <div className={classes.paper}>
                 <Typography component="h1" variant="h5">
                     Novo Produto
-        </Typography>
+            </Typography>
                 <form className={classes.form} noValidate>
 
                     <TextField
@@ -49,27 +52,22 @@ export default function FormProdutoUpc(props) {
                     />
 
                     <TextField
+                        label="Custo"
                         variant="outlined"
                         margin="normal"
-                        type="number"
-                        required
                         fullWidth
-                        onChange={handleInputChange}
-                        name="custo"
-                        label="Custo"
+                        value={values.custo}
+                        onChange={handleChangeFormat('custo')}
                         id="custo"
                     />
 
-
                     <TextField
+                        label="Valor"
                         variant="outlined"
                         margin="normal"
-                        type="number"
-                        required
                         fullWidth
-                        onChange={handleInputChange}
-                        name="valor"
-                        label="Valor"
+                        value={values.valor}
+                        onChange={handleChangeFormat('valor')}
                         id="valor"
                     />
 
@@ -82,7 +80,7 @@ export default function FormProdutoUpc(props) {
                         onClick={handleAdd}
                     >
                         Adicionar
-          </Button>
+                    </Button>
                 </form>
             </div>
         </Container>

@@ -48,13 +48,12 @@ export default function TableListImeis(props) {
   }
 
   function delImei(data) {
-    console.log('deleteImei', data)
     const result = database.deleteImei(data)
     if (result) {
       getImeis()
     }
   }
-
+  console.log('imeis', lists)
   return (
     <GridContainer>
       <ModalImei data={id} addImei={addImei} />

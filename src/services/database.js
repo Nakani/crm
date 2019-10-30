@@ -1,19 +1,24 @@
 import firebase from 'firebase';
 import { firebaseConfig } from './config-firebase'
+import { formatValor } from '../utils/formatNumber'
 import moment from "moment";
 const app = firebase.initializeApp(firebaseConfig)
 const db = app.database()
 
-function addUpc(data) {
-  return new Promise(async res => {
 
+function addUpc(data) {
+  var custo = data.custo.replace(/[^\d]+/g, '')
+  var valor = data.valor.replace(/[^\d]+/g, '')
+  var lucro = formatValor((valor - custo).toFixed())
+  return new Promise(async res => {
     const upc = {
       name: data.name,
-      custo: parseInt(data.custo),
-      valor: parseInt(data.valor),
-      lucro: data.valor - data.custo,
+      custo: data.custo,
+      valor: data.valor,
+      lucro: lucro,
       date: moment().format('DD-MM-YYYY'),
     }
+
     const result = await db.ref('upcs').push(upc)
     alert('Adicionado com sucesso!')
     res(result)
@@ -40,7 +45,7 @@ function getUpcs() {
     db.ref('upcs')
       .on('value', snap => {
         const results = snap.val()
-        console.log(results)
+
         const resultArray = []
         if (results) {
           Object.keys(results).map(async upc => {
@@ -55,7 +60,7 @@ function getUpcs() {
             }
           })
         }
-        console.log(resultArray)
+
         res(resultArray)
       })
   })

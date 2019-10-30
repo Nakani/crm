@@ -18,7 +18,7 @@ export default function TableImei(props) {
     }, [data]);
     return (
         <MaterialTable
-            title='teste'
+            title='Imeis'
             columns={columns}
             data={list}
             actions={[

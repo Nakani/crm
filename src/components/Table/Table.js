@@ -16,7 +16,6 @@ export default function Table(props) {
 
   useEffect(() => {
     if (data != null) {
-      console.log(data)
       setlist(data)
     }
   }, [data]);

@@ -12,6 +12,7 @@ import CardBody from "components/Card/CardBody.js";
 import { useSelector, useDispatch } from 'react-redux'
 import { getListsUpc } from '../../reduxs/index'
 import { database } from '../../services/database'
+import { formatValor } from '../../utils/formatNumber'
 //Styles
 import { Styles } from "./TableList.style"
 const useStyles = Styles;
@@ -30,11 +31,14 @@ export default function TableList(props) {
   }, [])
 
   useEffect(() => {
+    totalUpcs()
+    somarLucros()
+    somarValores()
+  }, [lists])
+
+  useEffect(() => {
     setLists(products.products)
-    totalUpcs(products.products)
-    somarLucros(products.products)
-    somarValores(products.products)
-  }, [products], [quantTotal], [totalLucro], [totalValor])
+  }, [products])
 
   function getUpcs() {
     getListsUpc(dispatch)
@@ -61,43 +65,43 @@ export default function TableList(props) {
     }
   }
 
-  function totalUpcs(products) {
-    if (products.length > 0) {
-      let total = quantTotal
-      products.map((prop, key) => {
-        total += prop.quantTotal
-        setTotal(total)
+  function totalUpcs(data) {
+    if (data != undefined && data.length > 0) {
+      let total = 0
+      data.map((prop, key) => {
+        total = total + prop.quantTotal
       })
+      return total
     }
   }
 
-  function somarLucros(products) {
-    if (products.length > 0) {
-      let total = parseInt(0)
-      let lucro = totalLucro
-      let totalItens = quantTotal
-      products.map((prop, key) => {
-        total += prop.lucro * prop.quantTotal
-        setLucro(total)
+  function somarLucros(data) {
+    if (data != undefined && data.length > 0) {
+      let total = 0
+      data.map((prop, key) => {
+        let lucro = prop.lucro.replace(/[^\d]+/g, '')
+        total += lucro * prop.quantTotal
       })
+      const result = formatValor(String(total))
+      return result
     }
   }
-  function somarValores(products) {
-    if (products.length > 0) {
-      let total = totalValor
-      let totalItens = quantTotal
-      products.map((prop, key) => {
-        total += prop.valor * prop.quantTotal
-        setValor(total)
+  function somarValores(data) {
+    if (data != undefined && data.length > 0) {
+      let total = 0
+      data.map((prop, key) => {
+        console.log(prop)
+        let valores = prop.valor.replace(/[^\d]+/g, '')
+        total += valores * prop.quantTotal
       })
+      const result = formatValor(String(total))
+      return result
     }
   }
-
-
   return (
     <div>
       <GridContainer>
-        <GridItem xs={12} sm={6} md={3}>
+        <GridItem xs={12} sm={6} md={4}>
           <Card>
             <CardHeader color="warning" stats icon>
               <CardIcon color="warning">
@@ -105,25 +109,12 @@ export default function TableList(props) {
               </CardIcon>
               <p className={classes.cardCategory}>Total produtos</p>
               <h3 className={classes.cardTitle}>
-                {quantTotal}
+                {totalUpcs(lists)}
               </h3>
             </CardHeader>
           </Card>
         </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
-          <Card>
-            <CardHeader color="warning" stats icon>
-              <CardIcon color="warning">
-                <Icon>content_copy</Icon>
-              </CardIcon>
-              <p className={classes.cardCategory}>Total Lucros</p>
-              <h3 className={classes.cardTitle}>
-                R$: {totalLucro}
-              </h3>
-            </CardHeader>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
+        <GridItem xs={12} sm={6} md={4}>
           <Card>
             <CardHeader color="warning" stats icon>
               <CardIcon color="warning">
@@ -131,7 +122,20 @@ export default function TableList(props) {
               </CardIcon>
               <p className={classes.cardCategory}>Total Valor</p>
               <h3 className={classes.cardTitle}>
-                R$: {totalValor}
+                R$: {somarValores(lists)}
+              </h3>
+            </CardHeader>
+          </Card>
+        </GridItem>
+        <GridItem xs={12} sm={6} md={4}>
+          <Card>
+            <CardHeader color="warning" stats icon>
+              <CardIcon color="warning">
+                <Icon>content_copy</Icon>
+              </CardIcon>
+              <p className={classes.cardCategory}>Total Lucros</p>
+              <h3 className={classes.cardTitle}>
+                R$: {somarLucros(lists)}
               </h3>
             </CardHeader>
           </Card>
