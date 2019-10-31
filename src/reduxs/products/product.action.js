@@ -1,13 +1,14 @@
 import { database } from '../../services/database'
 
-export const getListsUpc = async (dispatch) => {
+export const getListsUpc = (products) => {
     //Lists UPC
-    dispatch({ type: 'FETCH_PRODUCTS_REQUEST', payload: true })
-    const products = await database.getUpcs()
-    if (products) {
-        dispatch({ type: 'FETCH_PRODUCTS_SUCCESS', payload: { products } })
-    } else {
-        dispatch({ type: 'FETCH_PRODUCTS_FAIL', payload: false })
+    return async dispatch => {
+        dispatch({ type: 'FETCH_PRODUCTS_REQUEST', payload: true })
+        if (products) {
+            dispatch({ type: 'FETCH_PRODUCTS_SUCCESS', payload: { products } })
+        } else {
+            dispatch({ type: 'FETCH_PRODUCTS_FAIL', payload: false })
+        }
     }
 }
 

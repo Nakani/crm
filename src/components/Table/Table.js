@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import MaterialTable from 'material-table';
-import { database } from '../../services/database';
-import moment from "moment";
 
 export default function Table(props) {
-  const { data, history, typeTable } = props
+  const { data, history } = props
   const columns = [
     { title: 'Nome', field: 'name' },
     { title: 'Quantidade Total', field: 'quantTotal' },
@@ -19,6 +17,7 @@ export default function Table(props) {
       setlist(data)
     }
   }, [data]);
+
   return (
     <MaterialTable
       title='Lista de Produto'

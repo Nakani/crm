@@ -12,7 +12,7 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, products: action.payload.products, loaded: 'false' }
         }
         case 'FETCH_PRODUCTS_FAIL': {
-            return { ...state, products: action.payload.lists, loaded: 'false' }
+            return { ...state, products: INITIAL_STATE.products, loaded: 'false' }
         }
         default: {
             return state

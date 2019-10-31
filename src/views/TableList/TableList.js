@@ -20,9 +20,6 @@ const useStyles = Styles;
 export default function TableList(props) {
   const classes = useStyles();
   const [lists, setLists] = useState([]);
-  const [quantTotal, setTotal] = useState(0);
-  const [totalLucro, setLucro] = useState(0);
-  const [totalValor, setValor] = useState(0);
   const dispatch = useDispatch()
   const products = useSelector(state => state.productsReducer)
 
@@ -41,7 +38,9 @@ export default function TableList(props) {
   }, [products])
 
   function getUpcs() {
-    getListsUpc(dispatch)
+    database.getUpcs((products) => dispatch(getListsUpc(products)))
+
+    //getListsUpc(dispatch)
   }
 
   async function addUpc(data) {
@@ -90,7 +89,6 @@ export default function TableList(props) {
     if (data != undefined && data.length > 0) {
       let total = 0
       data.map((prop, key) => {
-        console.log(prop)
         let valores = prop.valor.replace(/[^\d]+/g, '')
         total += valores * prop.quantTotal
       })
@@ -98,6 +96,8 @@ export default function TableList(props) {
       return result
     }
   }
+
+  console.log(lists)
   return (
     <div>
       <GridContainer>

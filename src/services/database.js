@@ -39,31 +39,27 @@ function addImei(data) {
   //})
 }
 
-function getUpcs() {
-  console.log('inicio database')
-  return new Promise(res => {
-    db.ref('upcs')
-      .on('value', snap => {
-        const results = snap.val()
-
-        const resultArray = []
-        if (results) {
-          Object.keys(results).map(async upc => {
-            try {
-              resultArray.push({
-                ...results[upc],
-                upcId: upc,
-                quantTotal: countImeis(results[upc].products)
-              })
-            } catch (err) {
-              console.log('get upcs error', err)
-            }
-          })
-        }
-
-        res(resultArray)
-      })
-  })
+function getUpcs(callback) {
+  db.ref('upcs')
+    .on('value', snap => {
+      const results = snap.val()
+      const resultArray = []
+      if (results) {
+        Object.keys(results).map(async upc => {
+          try {
+            resultArray.push({
+              ...results[upc],
+              upcId: upc,
+              quantTotal: countImeis(results[upc].products)
+            })
+          } catch (err) {
+            console.log('get upcs error', err)
+          }
+        })
+      }
+      console.log(resultArray)
+      callback(resultArray)
+    })
 }
 
 function getProducts(upcId) {
@@ -106,7 +102,6 @@ function getUpcByID(id) {
 }
 
 function deleteImei(data) {
-  console.log()
   db.ref(`upcs/${data.upcId}/products`).child(data.productId).remove();
   alert('Apagado com sucesso!')
   return true
@@ -142,7 +137,6 @@ function lucroTotalProducts() {
             }
           })
         }
-        console.log(lucro)
         res(lucro)
       })
   })
