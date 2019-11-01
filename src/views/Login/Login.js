@@ -11,20 +11,31 @@ import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import { database } from '../../services/database'
+import { useSelector, useDispatch } from 'react-redux'
+import { authUsers } from '../../reduxs/index'
 import { useStyles } from './style'
 
-export default function SignIn() {
+export default function SignIn(props) {
     const classes = useStyles();
     const [values, setValues] = useState([]);
+    const dispatch = useDispatch()
+    const user = useSelector(state => state.authReducer)
 
     useEffect(() => {
+        saveUser()
+    }, [user])
 
-    }, [])
 
-    const handleAdd = () => {
-        console.log(values)
-        if (values.email && values.password) {
-        };
+    function saveUser() {
+        if (user.user.uid) {
+            localStorage.setItem('@authUser', user.user.uid)
+            props.history.push('/admin/dashboard');
+        }
+    }
+
+    function handleAdd() {
+        authUsers(dispatch, values)
     }
 
     const handleInputChange = e => {

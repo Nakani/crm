@@ -34,6 +34,7 @@ export default function Header(props) {
   const appBarClasses = classNames({
     [" " + classes[color]]: color
   });
+  console.log()
   return (
     <AppBar className={classes.appBar + appBarClasses}>
       <Toolbar className={classes.container}>
@@ -44,7 +45,7 @@ export default function Header(props) {
           </Button>
         </div>
         <Hidden smDown implementation="css">
-          <AdminNavbarLinks />
+          <AdminNavbarLinks history={props.history} />
         </Hidden>
         <Hidden mdUp implementation="css">
           <IconButton

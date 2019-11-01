@@ -39,8 +39,6 @@ export default function TableList(props) {
 
   function getUpcs() {
     database.getUpcs((products) => dispatch(getListsUpc(products)))
-
-    //getListsUpc(dispatch)
   }
 
   async function addUpc(data) {
@@ -97,7 +95,6 @@ export default function TableList(props) {
     }
   }
 
-  console.log(lists)
   return (
     <div>
       <GridContainer>

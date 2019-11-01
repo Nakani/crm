@@ -5,6 +5,8 @@ import moment from "moment";
 const app = firebase.initializeApp(firebaseConfig)
 const db = app.database()
 
+export const authUser = (email, password) =>
+  firebase.auth().signInWithEmailAndPassword(email, password)
 
 function addUpc(data) {
   var custo = data.custo.replace(/[^\d]+/g, '')
@@ -57,7 +59,6 @@ function getUpcs(callback) {
           }
         })
       }
-      console.log(resultArray)
       callback(resultArray)
     })
 }
@@ -149,9 +150,8 @@ function countImeis(imeis) {
   return 0
 }
 
-
-
 export const database = {
+  authUser,
   addUpc,
   getProducts,
   getUpcs,
