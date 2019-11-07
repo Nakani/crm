@@ -8,11 +8,10 @@ senha:   qwe123#
 
 Libraries:
 Ui Material
-React - usando novas features como UseState e useEffect
-Redux
-Axios
-Firebase
-
+React - usando novas features como UseState e useEffect,
+Redux,
+Axios,
+Firebase,
 
 Rodar projeto:
 apos o clone rode o comando yarn dentro da pasta!
