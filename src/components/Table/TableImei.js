@@ -15,13 +15,13 @@ export default function TableImei(props) {
             columns={columns}
             data={data}
             actions={[
-                {
-                    icon: 'mode_edit',
-                    tooltip: 'editar',
-                    onClick: (event, rowData) => {
-                        props.editImei()
-                    }
-                },
+                // {
+                //     icon: 'mode_edit',
+                //     tooltip: 'editar',
+                //     onClick: (event, rowData) => {
+                //         props.editImei()
+                //     }
+                // },
                 {
                     icon: 'delete',
                     tooltip: 'editar',

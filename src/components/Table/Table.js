@@ -33,13 +33,13 @@ export default function Table(props) {
               history.push('/admin/imeis/' + rowData.upcId);
             }
           },
-          {
-            icon: 'edit',
-            tooltip: 'edit IMEIS',
-            onClick: (event, rowData) => {
-              props.editUpc(rowData.upcId)
-            }
-          },
+          // {
+          //   icon: 'edit',
+          //   tooltip: 'edit IMEIS',
+          //   onClick: (event, rowData) => {
+          //     props.editUpc(rowData.upcId)
+          //   }
+          // },
           {
             icon: 'delete',
             tooltip: 'Apagar Upc',

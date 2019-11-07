@@ -81,7 +81,6 @@ function getProducts(upcId) {
             }
           })
         }
-        console.log(resultArray)
         res(resultArray)
       })
   })

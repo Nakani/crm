@@ -53,7 +53,6 @@ export default function TableListImeis(props) {
       getImeis()
     }
   }
-  console.log('imeis', lists)
   return (
     <GridContainer>
       <ModalImei data={id} addImei={addImei} />
