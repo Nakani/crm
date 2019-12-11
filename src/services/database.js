@@ -152,6 +152,12 @@ function deleteUpc(id) {
     return true
 }
 
+function deleteUser(userId) {
+	db.ref(`users`).child(userId).remove();
+	alert('Apagado com sucesso')
+	return true
+}
+
 function lucroTotalProducts() {
     return new Promise(res => {
         db.ref('upcs')
@@ -199,5 +205,6 @@ export const database = {
     deleteUpc,
     lucroTotalProducts,
     getUsers,
-    addUser
+	addUser,
+	deleteUser
 }

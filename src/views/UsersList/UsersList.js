@@ -49,12 +49,13 @@ export default function UserList(props) {
 
 	//   }
 
-	//   function delUpc(data) {
-	//     const result = database.deleteUpc(data)
-	//     if (result) {
-	//       getUpcs()
-	//     }
-	//   }
+	function deleteUser(data) {
+		const result = database.deleteUser(data)
+		if (result) {
+			getUsers()
+		}
+	}
+
 	function totalUsers(data) {
 		console.log(data)
 		if (data != undefined) {
@@ -96,8 +97,7 @@ export default function UserList(props) {
 							<UsersTable
 								data={usersList}
 								history={props.history}
-							// editUpc={editUpc}
-							// delUpc={delUpc}
+								deleteUser={deleteUser}
 							/>
 
 						</CardBody>

@@ -1,5 +1,6 @@
 import Dashboard from "@material-ui/icons/Dashboard";
 import Person from "@material-ui/icons/Person";
+import People from '@material-ui/icons/People';
 
 // core components/views for Admin layout
 import DashboardPage from "views/Dashboard/Dashboard.js";
@@ -43,9 +44,9 @@ const dashboardRoutes = [
     menu: false
   },
   {
-    path: "/users",
+    path: "/sellers",
     name: "Lista De Usuários",
-    icon: "content_paste",
+    icon: People,
     component: UsersList,
     layout: "/admin",
     menu: true
