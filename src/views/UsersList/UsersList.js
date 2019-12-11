@@ -18,94 +18,92 @@ import { Styles } from "./UsersList.style"
 const useStyles = Styles;
 
 export default function UserList(props) {
-    const classes = useStyles();
-    const [usersList, setUsersList] = useState([]);
-    const dispatch = useDispatch()
-    const users = useSelector(state => state.usersReducer)
+	const classes = useStyles();
+	const [usersList, setUsersList] = useState([]);
+	const dispatch = useDispatch()
+	const users = useSelector(state => state.usersReducer)
 
-    useEffect(() => {
-        getUsers()
-    }, [])
+	useEffect(() => {
+		getUsers()
+	}, [])
 
-    useEffect(() => {
-        console.log('users', users)
-        setUsersList(users.users)
-    }, [users])
+	useEffect(() => {
+		setUsersList(users.users)
+	}, [users])
 
-    function getUsers() {
-        getUsersList(dispatch)
-    }
+	function getUsers() {
+		getUsersList(dispatch)
+	}
 
-    async function addUser(data) {
-        const result = await database.addUser(data)
-        console.table(result)
-        if (result.key != null) {
-            window.location.reload();
-        }
-        else {
-            alert('Por favor preencha  o nome e o email.')
-        }
-    }
+	async function addUser(data) {
+		const result = await database.addUser(data)
+		if (result.key !== null) {
+			window.location.reload();
+		}
+		else {
+			alert('Por favor preencha o nome e o email.')
+		}
+	}
 
-    //   function editUpc(data) {
+	//   function editUpc(data) {
 
-    //   }
+	//   }
 
-    //   function delUpc(data) {
-    //     const result = database.deleteUpc(data)
-    //     if (result) {
-    //       getUpcs()
-    //     }
-    //   }
-    function totalUsers(data) {
-        console.log(data)
-        if (data != undefined) {
-            return data.length
-        }
+	//   function delUpc(data) {
+	//     const result = database.deleteUpc(data)
+	//     if (result) {
+	//       getUpcs()
+	//     }
+	//   }
+	function totalUsers(data) {
+		console.log(data)
+		if (data != undefined) {
+			return data.length
+		}
 
-        return 0
-    }
+		return 0
+	}
 
 
-    return (
-        <div>
-            <GridContainer>
-                <GridItem xs={12} sm={6} md={4}>
-                    <Card>
-                        <CardHeader color="warning" stats icon>
-                            <CardIcon color="warning">
-                                <Icon>content_copy</Icon>
-                            </CardIcon>
-                            <p className={classes.cardCategory}>Total usuários</p>
-                            <h3 className={classes.cardTitle}>
-                                {totalUsers(usersList)}
-                            </h3>
-                        </CardHeader>
-                    </Card>
-                </GridItem>
-            </GridContainer>
-            <GridContainer>
-                <ModalUser addUser={addUser} />
-                <GridItem xs={12} sm={12} md={12}>
-                    <Card>
-                        <CardHeader color="primary">
-                            <h4 className={classes.cardTitleWhite}>Lista de Usuários</h4>
-                            <p className={classes.cardCategoryWhite}>
-                                Gerencie seus usuários!
+	return (
+		<div>
+			<GridContainer>
+				<GridItem xs={12} sm={6} md={4}>
+					<Card>
+						<CardHeader color="warning" stats icon>
+							<CardIcon color="warning">
+								<Icon>content_copy</Icon>
+							</CardIcon>
+							<p className={classes.cardCategory}>Total usuários</p>
+							<h3 className={classes.cardTitle}>
+								{totalUsers(usersList)}
+							</h3>
+						</CardHeader>
+					</Card>
+				</GridItem>
+			</GridContainer>
+			<GridContainer>
+				<ModalUser addUser={addUser} />
+				<GridItem xs={12} sm={12} md={12}>
+					<Card>
+						<CardHeader color="primary">
+							<h4 className={classes.cardTitleWhite}>Lista de Usuários</h4>
+							<p className={classes.cardCategoryWhite}>
+								Gerencie seus usuários!
             </p>
-                        </CardHeader>
-                        <CardBody>
-                            <UsersTable
-                                data={usersList}
-                                history={props.history}
-                            // editUpc={editUpc}
-                            // delUpc={delUpc}
-                            />
+						</CardHeader>
+						<CardBody>
+							<UsersTable
+								data={usersList}
+								history={props.history}
+							// editUpc={editUpc}
+							// delUpc={delUpc}
+							/>
 
-                        </CardBody>
-                    </Card>
-                </GridItem>
-            </GridContainer>
-        </div>
-    );
+						</CardBody>
+					</Card>
+				</GridItem>
+			</GridContainer>
+		</div>
+	);
 }
