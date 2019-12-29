@@ -43,7 +43,7 @@ const dashboardRoutes = [
     menu: false
   },
   {
-    path: "/sellers",
+    path: "/clients",
     name: "Lista De Clientes",
     icon: People,
     component: UsersList,
