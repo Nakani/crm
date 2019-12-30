@@ -3,64 +3,56 @@ import Icon from "@material-ui/core/Icon";
 // core components
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
-import UsersTable from "components/Table/UsersTable";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardIcon from "components/Card/CardIcon.js";
 import CardBody from "components/Card/CardBody.js";
 import { useSelector, useDispatch } from "react-redux";
-import { getUsersList } from "../../reduxs/index";
+import { getSellsList } from "../../reduxs/index";
 import { database } from "../../services/database";
-import ModalUser from "../../components/Modal/modalUser";
+// import ModalSell from "../../components/Modal/modalSell";
 
 //Styles
-import { Styles } from "./UsersList.style";
+import { Styles } from "./SellsTable.style";
 const useStyles = Styles;
 
-export default function UserList(props) {
+export default function SellsTable(props) {
   const classes = useStyles();
-  const [usersList, setUsersList] = useState([]);
+  const [sellsList, setSellsList] = useState([]);
   const dispatch = useDispatch();
-  const users = useSelector(state => state.usersReducer);
+  const sells = useSelector(state => state.sellsReducer);
 
   useEffect(() => {
-    getUsers();
+    getSells();
   }, []);
 
   useEffect(() => {
-    setUsersList(users.users);
-  }, [users]);
+    setSellsList(sells.sells);
+  }, [sells]);
 
-  function getUsers() {
-    getUsersList(dispatch);
+  function getSells() {
+    getSellsList(dispatch);
   }
 
-  async function addUser(data) {
-    const result = await database.addUser(data);
-    if (result.key !== null) {
-      window.location.reload();
-    } else {
-      alert("Por favor preencha o nome e o email.");
-    }
-  }
-
-  //   function editUpc(data) {
-
+  //   async function addSell(data) {
+  //     const result = await database.addSell(data);
+  //     if (result.key !== null) {
+  //       window.location.reload();
+  //     } else {
+  //       alert("Por favor preencha as informações necessárias");
+  //     }
   //   }
 
-  function deleteUser(data) {
-    const result = database.deleteUser(data);
-    if (result) {
-      getUsers();
-    }
-  }
+  //   function deleteSell(data) {
+  //     const result = database.deleteSell(data);
+  //     if (result) {
+  //       getSells();
+  //     }
+  //   }
 
-  function totalUsers(data) {
-    if (data != undefined) {
-      return data.length;
-    }
-
-    return 0;
+  function totalSells(data) {
+    if (data === undefined) return 0;
+    return data.length;
   }
 
   return (
@@ -72,28 +64,28 @@ export default function UserList(props) {
               <CardIcon color="warning">
                 <Icon>content_copy</Icon>
               </CardIcon>
-              <p className={classes.cardCategory}>Total usuários</p>
-              <h3 className={classes.cardTitle}>{totalUsers(usersList)}</h3>
+              <p className={classes.cardCategory}>Total das vendas</p>
+              <h3 className={classes.cardTitle}>
+                {totalSells(sellsList || [])}
+              </h3>
             </CardHeader>
           </Card>
         </GridItem>
       </GridContainer>
       <GridContainer>
-        <ModalUser addUser={addUser} />
+        {/* <ModalUser addUser={addUser} /> */}
         <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="primary">
-              <h4 className={classes.cardTitleWhite}>Lista de Usuários</h4>
-              <p className={classes.cardCategoryWhite}>
-                Gerencie seus usuários!
-              </p>
+              <h4 className={classes.cardTitleWhite}>Lista de Vendas</h4>
+              <p className={classes.cardCategoryWhite}>Gerencie suas vendas!</p>
             </CardHeader>
             <CardBody>
-              <UsersTable
+              {/* <UsersTable
                 data={usersList}
                 history={props.history}
                 deleteUser={deleteUser}
-              />
+              /> */}
             </CardBody>
           </Card>
         </GridItem>
