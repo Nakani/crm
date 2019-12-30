@@ -8,9 +8,9 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardIcon from "components/Card/CardIcon.js";
 import CardBody from "components/Card/CardBody.js";
 import { useSelector, useDispatch } from "react-redux";
-import { getSellsList } from "../../reduxs/index";
+import { getSellsList, getAllImeis } from "../../reduxs/index";
 import { database } from "../../services/database";
-// import ModalSell from "../../components/Modal/modalSell";
+import ModalSell from "../../components/Modal/modalSell";
 
 //Styles
 import { Styles } from "./SellsTable.style";
@@ -19,11 +19,14 @@ const useStyles = Styles;
 export default function SellsTable(props) {
   const classes = useStyles();
   const [sellsList, setSellsList] = useState([]);
+  const [imeisList, setImeisList] = useState([]);
   const dispatch = useDispatch();
   const sells = useSelector(state => state.sellsReducer);
+  const imeis = useSelector(state => state.imeisReducer);
 
   useEffect(() => {
     getSells();
+    getImeis();
   }, []);
 
   useEffect(() => {
@@ -33,6 +36,14 @@ export default function SellsTable(props) {
   function getSells() {
     getSellsList(dispatch);
   }
+
+  function getImeis() {
+    getAllImeis(dispatch);
+  }
+
+  useEffect(() => {
+    setImeisList(imeis.imeis);
+  }, [imeis]);
 
   //   async function addSell(data) {
   //     const result = await database.addSell(data);
@@ -73,7 +84,7 @@ export default function SellsTable(props) {
         </GridItem>
       </GridContainer>
       <GridContainer>
-        {/* <ModalUser addUser={addUser} /> */}
+        <ModalSell imeis={imeisList} />
         <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="primary">

@@ -100,6 +100,32 @@ function getProducts(upcId) {
   });
 }
 
+function getImeis() {
+  return new Promise(res => {
+    db.ref(`upcs`).on("value", snap => {
+      const results = snap.val();
+      const resultArray = [];
+      if (results) {
+        Object.keys(results).forEach(async product => {
+          try {
+            const products = snap.child(`${product}/products`).val();
+            Object.keys(products).forEach(async unity => {
+              resultArray.push({
+                imei: products[unity].imei,
+                productId: product
+              });
+            });
+          } catch (err) {
+            console.log("hum, é mesmo");
+          }
+        });
+      }
+
+      res(resultArray);
+    });
+  });
+}
+
 function getUsers() {
   return new Promise(res => {
     db.ref(`users`).on("value", snap => {
@@ -228,5 +254,6 @@ export const database = {
   getUsers,
   addUser,
   deleteUser,
-  getSells
+  getSells,
+  getImeis
 };

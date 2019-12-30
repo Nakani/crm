@@ -2,7 +2,6 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Button from "@material-ui/core/Button";
-import FormUser from "../Forms/formUser";
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -30,7 +29,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function ModalUser(props) {
+export default function ModalSell(props) {
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
@@ -47,7 +46,7 @@ export default function ModalUser(props) {
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleOpen}>
-        Adicionar novo Usuário
+        Adicionar nova venda
       </Button>
       <Modal
         aria-labelledby="simple-modal-title"
@@ -56,7 +55,12 @@ export default function ModalUser(props) {
         onClose={handleClose}
       >
         <div style={modalStyle} className={classes.paper}>
-          <FormUser data={props} addUser={props.addUser} />
+          {/* <FormUser data={props} addUser={props.addUser} /> */}
+          <select>
+            {props.imeis.map(imei => (
+              <option key={imei.imei}>{imei.imei}</option>
+            ))}
+          </select>
         </div>
       </Modal>
     </div>
