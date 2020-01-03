@@ -70,8 +70,10 @@ export default function SellsTable(props) {
   }
 
   const addSell = things => {
-    console.log(things);
+    database.addSell(things);
   };
+
+  console.log(sellsList);
 
   return (
     <div>

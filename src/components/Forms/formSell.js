@@ -10,16 +10,35 @@ import { formatValor } from "../../utils/formatNumber";
 
 export default function FormSell({ props }) {
   const classes = useStyles();
+  const [user, setUser] = useState({});
+  const [price, setPrice] = useState(0);
+  const [amountPaid, setAmountPaid] = useState(0);
+  const [product, setProduct] = useState({});
+  const [userName, setUserName] = useState();
   const [imei, setImei] = useState();
-  const [user, setUser] = useState();
-  const [price, setPrice] = useState();
-  const [amountPaid, setAmountPaid] = useState();
 
   const [block, setBlock] = useState("disabled");
 
   const handleAdd = () => {
-    props.addSell({ imei, user, price, amountPaid });
+    props.addSell({ product, user, price, amountPaid });
   };
+
+  const handleImeiChange = e => {
+    const selectedImei = e.target.value;
+
+    setProduct(props.imeis.find(item => item.imei == selectedImei));
+    setImei(selectedImei);
+  };
+
+  const handleUserChange = e => {
+    const selectedName = e.target.value;
+
+    setUser(props.users.find(item => item.name == selectedName));
+    setUserName(selectedName);
+  };
+
+  console.log(imei);
+  console.log(userName);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -44,7 +63,7 @@ export default function FormSell({ props }) {
             />
           )}
           value={imei}
-          onSelect={e => setImei(e.target.value)}
+          onSelect={handleImeiChange}
         />
         <Autocomplete
           id="sellers"
@@ -61,8 +80,8 @@ export default function FormSell({ props }) {
               name="seller"
             />
           )}
-          value={user}
-          onSelect={e => setUser(e.target.value)}
+          value={userName}
+          onSelect={handleUserChange}
         />
         <TextField
           variant="outlined"

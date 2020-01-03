@@ -27,9 +27,7 @@ function addUpc(data) {
   });
 }
 
-function addUser(data) {
-  const email = data.email;
-  const name = data.name;
+function addUser({ email, name }) {
   return new Promise(async res => {
     const user = {
       name,
@@ -234,6 +232,27 @@ function lucroTotalProducts() {
   });
 }
 
+function addSell({ product, user, price, amountPaid }) {
+  // TODO: Encontrar o produto pelo ID e remover o IMEI
+  return new Promise(async res => {
+    try {
+      const sell = {
+        product,
+        user,
+        price,
+        amountPaid,
+        date: moment().format("DD-MM-YYYY")
+      };
+
+      const result = await db.ref("sells").push(sell);
+      alert("Venda realizada com sucesso!");
+      res(result);
+    } catch (error) {
+      console.log("error on adding a new sell", error);
+    }
+  });
+}
+
 function countImeis(imeis) {
   if (imeis) {
     return Object.keys(imeis).length;
@@ -255,5 +274,6 @@ export const database = {
   addUser,
   deleteUser,
   getSells,
-  getImeis
+  getImeis,
+  addSell
 };
