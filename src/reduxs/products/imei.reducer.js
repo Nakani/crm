@@ -16,6 +16,16 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, imeis: action.payload.lists, loaded: "false" };
     }
 
+    case "FETCH_ALL_IMEI_REQUEST": {
+      return { ...state, loaded: action.payload };
+    }
+    case "FETCH_ALL_IMEI_SUCCESS": {
+      return { ...state, imeis: action.payload.imeis, loaded: "false" };
+    }
+    case "FETCH_ALL_IMEI_FAIL": {
+      return { ...state, imeis: action.payload.lists, loaded: "false" };
+    }
+
     case "FETCH_UPCBYID_REQUEST": {
       return { ...state, loaded: action.payload };
     }

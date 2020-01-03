@@ -116,7 +116,7 @@ function getImeis() {
               });
             });
           } catch (err) {
-            console.log("hum, é mesmo");
+            console.log("erro ao carregar imeis");
           }
         });
       }

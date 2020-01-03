@@ -8,9 +8,9 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardIcon from "components/Card/CardIcon.js";
 import CardBody from "components/Card/CardBody.js";
 import { useSelector, useDispatch } from "react-redux";
-import { getSellsList, getAllImeis } from "../../reduxs/index";
-import { database } from "../../services/database";
+import { getSellsList } from "../../reduxs/index";
 import ModalSell from "../../components/Modal/modalSell";
+import { database } from "../../services/database";
 
 //Styles
 import { Styles } from "./SellsTable.style";
@@ -18,14 +18,17 @@ const useStyles = Styles;
 
 export default function SellsTable(props) {
   const classes = useStyles();
-  const [sellsList, setSellsList] = useState([]);
-  const [imeisList, setImeisList] = useState([]);
   const dispatch = useDispatch();
+
+  const [sellsList, setSellsList] = useState([{}]);
+  const [usersList, setUsersList] = useState([{}]);
+  const [imeisList, setImeisList] = useState([{}]);
+
   const sells = useSelector(state => state.sellsReducer);
-  const imeis = useSelector(state => state.imeisReducer);
 
   useEffect(() => {
     getSells();
+    getUsers();
     getImeis();
   }, []);
 
@@ -37,20 +40,20 @@ export default function SellsTable(props) {
     getSellsList(dispatch);
   }
 
-  function getImeis() {
-    getAllImeis(dispatch);
+  function getUsers() {
+    database.getUsers().then(users => setUsersList(users));
   }
 
-  useEffect(() => {
-    setImeisList(imeis.imeis);
-  }, [imeis]);
+  function getImeis() {
+    database.getImeis().then(imeis => setImeisList(imeis));
+  }
 
   //   async function addSell(data) {
   //     const result = await database.addSell(data);
   //     if (result.key !== null) {
   //       window.location.reload();
   //     } else {
-  //       alert("Por favor preencha as informações necessárias");
+  //       alert("Por favor preencconst users = useSelector(state => state.usersReducer);ha as informações necessárias");
   //     }
   //   }
 
@@ -65,6 +68,10 @@ export default function SellsTable(props) {
     if (data === undefined) return 0;
     return data.length;
   }
+
+  const addSell = things => {
+    console.log(things);
+  };
 
   return (
     <div>
@@ -84,7 +91,7 @@ export default function SellsTable(props) {
         </GridItem>
       </GridContainer>
       <GridContainer>
-        <ModalSell imeis={imeisList} />
+        <ModalSell imeis={imeisList} users={usersList} addSell={addSell} />
         <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="primary">
@@ -92,11 +99,11 @@ export default function SellsTable(props) {
               <p className={classes.cardCategoryWhite}>Gerencie suas vendas!</p>
             </CardHeader>
             <CardBody>
-              {/* <UsersTable
-                data={usersList}
-                history={props.history}
-                deleteUser={deleteUser}
-              /> */}
+              {sellsList.length > 0 ? (
+                <h1>Oi</h1>
+              ) : (
+                <span>Nenhuma venda realizada</span>
+              )}
             </CardBody>
           </Card>
         </GridItem>

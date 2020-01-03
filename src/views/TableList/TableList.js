@@ -38,7 +38,7 @@ export default function TableList(props) {
   }, [products]);
 
   function getUpcs() {
-    database.getUpcs(products => console.log(products));
+    database.getUpcs(products => dispatch(getListsUpc(products)));
   }
 
   async function addUpc(data) {
