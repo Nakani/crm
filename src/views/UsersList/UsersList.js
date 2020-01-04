@@ -44,10 +44,6 @@ export default function UserList(props) {
     }
   }
 
-  //   function editUpc(data) {
-
-  //   }
-
   function deleteUser(data) {
     const result = database.deleteUser(data);
     if (result) {

@@ -1,6 +1,7 @@
 import firebase from "firebase";
 import { firebaseConfig } from "./config-firebase";
 import { formatValor } from "../utils/formatNumber";
+import { convertStringToNumber } from "../utils/convertStringToNumber";
 import moment from "moment";
 const app = firebase.initializeApp(firebaseConfig);
 const db = app.database();
@@ -236,11 +237,17 @@ function addSell({ product, user, price, amountPaid }) {
   // TODO: Encontrar o produto pelo ID e remover o IMEI
   return new Promise(async res => {
     try {
+      console.log(convertStringToNumber(price));
+      console.log(convertStringToNumber(amountPaid));
+      const pendingAmount =
+        convertStringToNumber(price) - convertStringToNumber(amountPaid);
+
       const sell = {
         product,
         user,
         price,
         amountPaid,
+        pendingAmount: formatValor(pendingAmount),
         date: moment().format("DD-MM-YYYY")
       };
 

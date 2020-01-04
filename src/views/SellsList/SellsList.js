@@ -11,12 +11,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { getSellsList } from "../../reduxs/index";
 import ModalSell from "../../components/Modal/modalSell";
 import { database } from "../../services/database";
-
+import SellsTable from "../../components/Table/SellsTable";
 //Styles
-import { Styles } from "./SellsTable.style";
+import { Styles } from "./SellsList.style";
 const useStyles = Styles;
 
-export default function SellsTable(props) {
+export default function SellsList(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -69,9 +69,14 @@ export default function SellsTable(props) {
     return data.length;
   }
 
-  const addSell = things => {
-    database.addSell(things);
-  };
+  async function addSell(data) {
+    const result = await database.addSell(data);
+    if (result.key !== null) {
+      window.location.reload();
+    } else {
+      alert("Verifique as informações.");
+    }
+  }
 
   console.log(sellsList);
 
@@ -102,7 +107,7 @@ export default function SellsTable(props) {
             </CardHeader>
             <CardBody>
               {sellsList.length > 0 ? (
-                <h1>Oi</h1>
+                <SellsTable data={sellsList} history={props.history} />
               ) : (
                 <span>Nenhuma venda realizada</span>
               )}

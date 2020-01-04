@@ -37,8 +37,7 @@ export default function FormSell({ props }) {
     setUserName(selectedName);
   };
 
-  console.log(imei);
-  console.log(userName);
+  console.log("amountPaid", amountPaid);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -94,7 +93,7 @@ export default function FormSell({ props }) {
           label="Preço"
           placeholder="Valor do produto"
           id="price"
-          value={price}
+          value={formatValor(price)}
         />
         <TextField
           variant="outlined"

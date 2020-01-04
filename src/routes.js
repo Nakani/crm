@@ -7,7 +7,7 @@ import UserProfile from "views/UserProfile/UserProfile.js";
 import TableList from "views/TableList/TableList.js";
 import UsersList from "views/UsersList/UsersList.js";
 import TableListImeis from "views/TableList/TableListImeis.js";
-import SellsTable from "views/SellsTable/SellsTable.js";
+import SellsList from "views/SellsList/SellsList.js";
 
 const dashboardRoutes = [
   {
@@ -54,7 +54,7 @@ const dashboardRoutes = [
     path: "/sells",
     name: "Vendas",
     icon: MonetizationOn,
-    component: SellsTable,
+    component: SellsList,
     layout: "/admin",
     menu: true
   }
