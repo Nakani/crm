@@ -111,7 +111,8 @@ function getImeis() {
             Object.keys(products).forEach(async unity => {
               resultArray.push({
                 imei: products[unity].imei,
-                productId: product
+                productId: unity,
+                upcId: product
               });
             });
           } catch (err) {
@@ -184,10 +185,10 @@ function getUpcByID(id) {
 }
 
 function deleteImei(data) {
+  console.log(data);
   db.ref(`upcs/${data.upcId}/products`)
     .child(data.productId)
     .remove();
-  alert("Apagado com sucesso!");
   return true;
 }
 
@@ -233,25 +234,34 @@ function lucroTotalProducts() {
   });
 }
 
-function addSell({ product, user, price, amountPaid }) {
-  // TODO: Encontrar o produto pelo ID e remover o IMEI
+function addSell({ product, user, price, amountPaid = "0" }) {
   return new Promise(async res => {
     try {
-      const pendingAmount =
-        convertStringToNumber(price) - convertStringToNumber(amountPaid);
-
-      const sell = {
-        product,
-        user,
-        price,
-        amountPaid,
-        pendingAmount,
-        date: moment().format("DD-MM-YYYY")
+      amountPaid = String(amountPaid);
+      const data = {
+        productId: product.productId,
+        upcId: product.upcId
       };
 
-      const result = await db.ref("sells").push(sell);
-      alert("Venda realizada com sucesso!");
-      res(result);
+      const isImeiDeleted = await deleteImei(data);
+
+      if (isImeiDeleted) {
+        const pendingAmount =
+          convertStringToNumber(price) - convertStringToNumber(amountPaid);
+
+        const sell = {
+          product,
+          user,
+          price,
+          amountPaid,
+          pendingAmount,
+          date: moment().format("DD-MM-YYYY")
+        };
+
+        const result = await db.ref("sells").push(sell);
+        alert("Venda realizada com sucesso!");
+        res(result);
+      }
     } catch (error) {
       console.log("error on adding a new sell", error);
     }
@@ -286,7 +296,6 @@ function deleteSell(sellId) {
         .child(sellId)
         .remove();
 
-      console.log(result);
       res(result);
     } catch (error) {
       console.log(error);

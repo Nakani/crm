@@ -21,8 +21,6 @@ export default function SellsTable(props) {
     }
   }, [data]);
 
-  console.log({ list });
-
   return (
     <>
       {list && (
