@@ -48,22 +48,6 @@ export default function SellsList(props) {
     database.getImeis().then(imeis => setImeisList(imeis));
   }
 
-  //   async function addSell(data) {
-  //     const result = await database.addSell(data);
-  //     if (result.key !== null) {
-  //       window.location.reload();
-  //     } else {
-  //       alert("Por favor preencconst users = useSelector(state => state.usersReducer);ha as informações necessárias");
-  //     }
-  //   }
-
-  //   function deleteSell(data) {
-  //     const result = database.deleteSell(data);
-  //     if (result) {
-  //       getSells();
-  //     }
-  //   }
-
   function totalSells(data) {
     if (data === undefined) return 0;
     return data.length;
@@ -78,7 +62,15 @@ export default function SellsList(props) {
     }
   }
 
-  console.log(sellsList);
+  async function addPayment(data) {
+    await database.addPaymentToSell(data);
+    window.location.reload();
+  }
+
+  async function deleteSell(sellId) {
+    await database.deleteSell(sellId);
+    window.location.reload();
+  }
 
   return (
     <div>
@@ -107,7 +99,12 @@ export default function SellsList(props) {
             </CardHeader>
             <CardBody>
               {sellsList.length > 0 ? (
-                <SellsTable data={sellsList} history={props.history} />
+                <SellsTable
+                  data={sellsList}
+                  history={props.history}
+                  addPayment={addPayment}
+                  deleteSell={deleteSell}
+                />
               ) : (
                 <span>Nenhuma venda realizada</span>
               )}

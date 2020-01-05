@@ -37,8 +37,6 @@ export default function FormSell({ props }) {
     setUserName(selectedName);
   };
 
-  console.log("amountPaid", amountPaid);
-
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -55,7 +53,7 @@ export default function FormSell({ props }) {
             <TextField
               {...params}
               required
-              label="IMEIS"
+              label="IMEI"
               variant="outlined"
               fullWidth
               name="imei"
@@ -73,7 +71,7 @@ export default function FormSell({ props }) {
             <TextField
               {...params}
               required
-              label="Clientes"
+              label="Cliente"
               variant="outlined"
               fullWidth
               name="seller"

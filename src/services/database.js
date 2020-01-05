@@ -237,8 +237,6 @@ function addSell({ product, user, price, amountPaid }) {
   // TODO: Encontrar o produto pelo ID e remover o IMEI
   return new Promise(async res => {
     try {
-      console.log(convertStringToNumber(price));
-      console.log(convertStringToNumber(amountPaid));
       const pendingAmount =
         convertStringToNumber(price) - convertStringToNumber(amountPaid);
 
@@ -247,7 +245,7 @@ function addSell({ product, user, price, amountPaid }) {
         user,
         price,
         amountPaid,
-        pendingAmount: formatValor(pendingAmount),
+        pendingAmount,
         date: moment().format("DD-MM-YYYY")
       };
 
@@ -256,6 +254,43 @@ function addSell({ product, user, price, amountPaid }) {
       res(result);
     } catch (error) {
       console.log("error on adding a new sell", error);
+    }
+  });
+}
+
+function addPaymentToSell({ sellId, amount = "0", amountPaid = "0" }) {
+  return new Promise(async res => {
+    try {
+      const oldAmount = convertStringToNumber(amountPaid);
+      const newAmount = formatValor(
+        String(oldAmount + convertStringToNumber(amount))
+      );
+
+      const result = await db
+        .ref("sells")
+        .child(sellId)
+        .update({ amountPaid: newAmount });
+
+      res(result);
+    } catch (error) {
+      console.log("error on adding a new payment", error);
+    }
+  });
+}
+
+function deleteSell(sellId) {
+  return new Promise(async res => {
+    try {
+      const result = await db
+        .ref(`sells`)
+        .child(sellId)
+        .remove();
+
+      console.log(result);
+      res(result);
+    } catch (error) {
+      console.log(error);
+      console.log("error on deleting a sell");
     }
   });
 }
@@ -282,5 +317,7 @@ export const database = {
   deleteUser,
   getSells,
   getImeis,
-  addSell
+  addSell,
+  addPaymentToSell,
+  deleteSell
 };

@@ -1,5 +1,4 @@
 export function formatValor(i) {
-  console.log(i);
   if (i) {
     var v = i.replace(/\D/g, "");
     v = (v / 100).toFixed(2) + "";

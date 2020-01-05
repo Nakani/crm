@@ -59,8 +59,6 @@ export default function UserList(props) {
     return 0;
   }
 
-  console.log(usersList);
-
   return (
     <div>
       <GridContainer>
