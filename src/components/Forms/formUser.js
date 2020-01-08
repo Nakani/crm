@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
-export default function FormProduto(props) {
+export default function FormUser(props) {
   const classes = useStyles();
   const [values, setValues] = useState();
   const [fields, setFields] = useState([{ name: "", email: "" }]);
@@ -16,7 +16,6 @@ export default function FormProduto(props) {
   const [block, setBlock] = useState("disabled");
 
   const handleAdd = () => {
-    console.log({ email, name });
     props.addUser({ email, name });
   };
 
@@ -25,7 +24,7 @@ export default function FormProduto(props) {
       <CssBaseline />
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">
-          Novo cliente
+          Novo Cliente
         </Typography>
         <TextField
           variant="outlined"

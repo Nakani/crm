@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Icon from "@material-ui/core/Icon";
 // core components
 import GridItem from "components/Grid/GridItem.js";
@@ -25,6 +25,7 @@ export default function UserList(props) {
 
   useEffect(() => {
     getUsers();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -44,10 +45,6 @@ export default function UserList(props) {
     }
   }
 
-  //   function editUpc(data) {
-
-  //   }
-
   function deleteUser(data) {
     const result = database.deleteUser(data);
     if (result) {
@@ -56,7 +53,6 @@ export default function UserList(props) {
   }
 
   function totalUsers(data) {
-    console.log(data);
     if (data != undefined) {
       return data.length;
     }

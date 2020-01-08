@@ -10,7 +10,6 @@ export default function UsersTable(props) {
   const [list, setList] = useState([]);
 
   useEffect(() => {
-    console.log({ data });
     if (data !== null) {
       setList(data);
     }
