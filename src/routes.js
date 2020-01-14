@@ -1,13 +1,12 @@
 import Dashboard from "@material-ui/icons/Dashboard";
-import { Person, People, MonetizationOn } from "@material-ui/icons";
+import Person from "@material-ui/icons/Person";
 
 // core components/views for Admin layout
 import DashboardPage from "views/Dashboard/Dashboard.js";
 import UserProfile from "views/UserProfile/UserProfile.js";
 import TableList from "views/TableList/TableList.js";
-import UsersList from "views/UsersList/UsersList.js";
 import TableListImeis from "views/TableList/TableListImeis.js";
-import SellsList from "views/SellsList/SellsList.js";
+
 
 const dashboardRoutes = [
   {
@@ -41,23 +40,8 @@ const dashboardRoutes = [
     component: TableListImeis,
     layout: "/admin",
     menu: false
-  },
-  {
-    path: "/clients",
-    name: "Lista De Clientes",
-    icon: People,
-    component: UsersList,
-    layout: "/admin",
-    menu: true
-  },
-  {
-    path: "/sells",
-    name: "Vendas",
-    icon: MonetizationOn,
-    component: SellsList,
-    layout: "/admin",
-    menu: true
   }
+
 ];
 
 const childrenRoutes = [
@@ -66,8 +50,9 @@ const childrenRoutes = [
     name: "Imeis",
     component: TableListImeis,
     layout: "/admin"
-  }
-];
+  },]
+
+
 
 export const routes = {
   dashboardRoutes,

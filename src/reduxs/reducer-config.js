@@ -1,16 +1,13 @@
-import { combineReducers } from "redux";
-import productsReducer from "./products/product.reducer";
-import imeisReducer from "./products/imei.reducer";
-import authReducer from "./auth/auth.reducer";
-import usersReducer from "./users/user.reducer";
-import sellsReducer from "./sells/sell.reducer";
+import { combineReducers } from 'redux'
+import productsReducer from './products/product.reducer'
+import imeisReducer from './products/imei.reducer'
+import authReducer from './auth/auth.reducer'
 
 const rootReducer = combineReducers({
   productsReducer,
   imeisReducer,
-  authReducer,
-  usersReducer,
-  sellsReducer
-});
+  authReducer
 
-export default rootReducer;
+})
+
+export default rootReducer
