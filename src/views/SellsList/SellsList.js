@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useLayoutEffect } from "react";
 import Icon from "@material-ui/core/Icon";
 // core components
 import GridItem from "components/Grid/GridItem.js";
@@ -17,101 +17,106 @@ import { Styles } from "./SellsList.style";
 const useStyles = Styles;
 
 export default function SellsList(props) {
-  const classes = useStyles();
-  const dispatch = useDispatch();
+    const classes = useStyles();
+    const dispatch = useDispatch();
 
-  const [sellsList, setSellsList] = useState([{}]);
-  const [usersList, setUsersList] = useState([{}]);
-  const [imeisList, setImeisList] = useState([{}]);
+    const [sellsList, setSellsList] = useState([{}]);
+    const [usersList, setUsersList] = useState([{}]);
+    const [imeisList, setImeisList] = useState([{}]);
 
-  const sells = useSelector(state => state.sellsReducer);
+    const sells = useSelector(state => state.sellsReducer);
 
-  useEffect(() => {
-    getSells();
-    getUsers();
-    getImeis();
-  }, []);
+    useEffect(() => {
 
-  useEffect(() => {
-    setSellsList(sells.sells);
-  }, [sells]);
+        getSells();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
-  function getSells() {
-    getSellsList(dispatch);
-  }
+    useEffect(() => {
+        getImeis();
+        getUsers();
+    }, [sellsList])
 
-  function getUsers() {
-    database.getUsers().then(users => setUsersList(users));
-  }
+    useEffect(() => {
+        setSellsList(sells.sells);
+    }, [sells]);
 
-  function getImeis() {
-    database.getImeis().then(imeis => setImeisList(imeis));
-  }
-
-  function totalSells(data) {
-    if (data === undefined) return 0;
-    return data.length;
-  }
-
-  async function addSell(data) {
-    const result = await database.addSell(data);
-    if (result.key !== null) {
-      window.location.reload();
-    } else {
-      alert("Verifique as informações.");
+    function getSells() {
+        getSellsList(dispatch);
     }
-  }
 
-  async function addPayment(data) {
-    await database.addPaymentToSell(data);
-    window.location.reload();
-  }
+    function getUsers() {
+        database.getUsers().then(users => setUsersList(users));
+    }
 
-  async function deleteSell(sellId) {
-    await database.deleteSell(sellId);
-    window.location.reload();
-  }
+    function getImeis() {
+        database.getImeis().then(imeis => setImeisList(imeis));
+    }
 
-  return (
-    <div>
-      <GridContainer>
-        <GridItem xs={12} sm={6} md={4}>
-          <Card>
-            <CardHeader color="warning" stats icon>
-              <CardIcon color="warning">
-                <Icon>content_copy</Icon>
-              </CardIcon>
-              <p className={classes.cardCategory}>Total das vendas</p>
-              <h3 className={classes.cardTitle}>
-                {totalSells(sellsList || [])}
-              </h3>
-            </CardHeader>
-          </Card>
-        </GridItem>
-      </GridContainer>
-      <GridContainer>
-        <ModalSell imeis={imeisList} users={usersList} addSell={addSell} />
-        <GridItem xs={12} sm={12} md={12}>
-          <Card>
-            <CardHeader color="primary">
-              <h4 className={classes.cardTitleWhite}>Lista de Vendas</h4>
-              <p className={classes.cardCategoryWhite}>Gerencie suas vendas!</p>
-            </CardHeader>
-            <CardBody>
-              {sellsList.length > 0 ? (
-                <SellsTable
-                  data={sellsList}
-                  history={props.history}
-                  addPayment={addPayment}
-                  deleteSell={deleteSell}
-                />
-              ) : (
-                <span>Nenhuma venda realizada</span>
-              )}
-            </CardBody>
-          </Card>
-        </GridItem>
-      </GridContainer>
-    </div>
-  );
+    function totalSells(data) {
+        if (data === undefined) return 0;
+        return data.length;
+    }
+
+    async function addSell(data) {
+        const result = await database.addSell(data);
+        if (result.key !== null) {
+            window.location.reload();
+        } else {
+            alert("Verifique as informações.");
+        }
+    }
+
+    async function addPayment(data) {
+        await database.addPaymentToSell(data);
+        window.location.reload();
+    }
+
+    async function deleteSell(sellId) {
+        await database.deleteSell(sellId);
+        window.location.reload();
+    }
+
+    return (
+        <div>
+            <GridContainer>
+                <GridItem xs={12} sm={6} md={4}>
+                    <Card>
+                        <CardHeader color="warning" stats icon>
+                            <CardIcon color="warning">
+                                <Icon>content_copy</Icon>
+                            </CardIcon>
+                            <p className={classes.cardCategory}>Total das vendas</p>
+                            <h3 className={classes.cardTitle}>
+                                {totalSells(sellsList || [])}
+                            </h3>
+                        </CardHeader>
+                    </Card>
+                </GridItem>
+            </GridContainer>
+            <GridContainer>
+                <ModalSell imeis={imeisList} users={usersList} addSell={addSell} />
+                <GridItem xs={12} sm={12} md={12}>
+                    <Card>
+                        <CardHeader color="primary">
+                            <h4 className={classes.cardTitleWhite}>Lista de Vendas</h4>
+                            <p className={classes.cardCategoryWhite}>Gerencie suas vendas!</p>
+                        </CardHeader>
+                        <CardBody>
+                            {sellsList.length > 0 ? (
+                                <SellsTable
+                                    data={sellsList}
+                                    history={props.history}
+                                    addPayment={addPayment}
+                                    deleteSell={deleteSell}
+                                />
+                            ) : (
+                                    <span>Nenhuma venda realizada</span>
+                                )}
+                        </CardBody>
+                    </Card>
+                </GridItem>
+            </GridContainer>
+        </div>
+    );
 }
