@@ -52,7 +52,7 @@ const dashboardRoutes = [
   },
   {
     path: "/sells",
-    name: "Vendas",
+    name: "Financeiro",
     icon: MonetizationOn,
     component: SellsList,
     layout: "/admin",
