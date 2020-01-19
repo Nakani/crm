@@ -64,7 +64,16 @@ export default function SellsList(props) {
         if (data === undefined) return `R$ 0,00`;
         const total = data.reduce((pre, cur) => pre + convertStringToNumber(cur.price), 0);
 
-        return `R$ ${formatValor(total)}`
+        return `R$ ${formatValor(total.toFixed(2))}`
+    }
+
+
+    function totalPendingValue(data) {
+        console.log(data)
+        if (data === undefined) return `R$ 0,00`;
+        const total = data.reduce((pre, cur) => pre + cur.pendingAmount, 0);
+
+        return `R$ ${formatValor(total.toFixed(2))}`
     }
 
     async function addSell(data) {
@@ -112,6 +121,20 @@ export default function SellsList(props) {
                             <p className={classes.cardCategory}>Total das vendas</p>
                             <h3 className={classes.cardTitle}>
                                 {sellsList.length > 1 && totalSellsValue(sellsList)}
+                            </h3>
+                        </CardHeader>
+                    </Card>
+                </GridItem>
+
+                <GridItem xs={12} sm={6} md={4}>
+                    <Card>
+                        <CardHeader color="warning" stats icon>
+                            <CardIcon color="warning">
+                                <Icon>content_copy</Icon>
+                            </CardIcon>
+                            <p className={classes.cardCategory}>Total pendente</p>
+                            <h3 className={classes.cardTitle}>
+                                {sellsList.length > 1 && totalPendingValue(sellsList)}
                             </h3>
                         </CardHeader>
                     </Card>
