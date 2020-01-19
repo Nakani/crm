@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, useLayoutEffect } from "react";
 import Icon from "@material-ui/core/Icon";
 // core components
@@ -11,6 +12,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { getSellsList } from "../../reduxs/index";
 import ModalSell from "../../components/Modal/modalSell";
 import { database } from "../../services/database";
+import { convertStringToNumber } from '../../utils/convertStringToNumber';
+import { formatValor } from '../../utils/formatNumber';
+
 import SellsTable from "../../components/Table/SellsTable";
 //Styles
 import { Styles } from "./SellsList.style";
@@ -20,16 +24,14 @@ export default function SellsList(props) {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const [sellsList, setSellsList] = useState([{}]);
+    const [sellsList, setSellsList] = useState([]);
     const [usersList, setUsersList] = useState([{}]);
     const [imeisList, setImeisList] = useState([{}]);
 
     const sells = useSelector(state => state.sellsReducer);
 
     useEffect(() => {
-
         getSells();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
@@ -56,6 +58,13 @@ export default function SellsList(props) {
     function totalSells(data) {
         if (data === undefined) return 0;
         return data.length;
+    }
+
+    function totalSellsValue(data) {
+        if (data === undefined) return `R$ 0,00`;
+        const total = data.reduce((pre, cur) => pre + convertStringToNumber(cur.price), 0);
+
+        return `R$ ${formatValor(total)}`
     }
 
     async function addSell(data) {
@@ -86,9 +95,23 @@ export default function SellsList(props) {
                             <CardIcon color="warning">
                                 <Icon>content_copy</Icon>
                             </CardIcon>
-                            <p className={classes.cardCategory}>Total das vendas</p>
+                            <p className={classes.cardCategory}>Total de vendas</p>
                             <h3 className={classes.cardTitle}>
                                 {totalSells(sellsList || [])}
+                            </h3>
+                        </CardHeader>
+                    </Card>
+                </GridItem>
+
+                <GridItem xs={12} sm={6} md={4}>
+                    <Card>
+                        <CardHeader color="warning" stats icon>
+                            <CardIcon color="warning">
+                                <Icon>content_copy</Icon>
+                            </CardIcon>
+                            <p className={classes.cardCategory}>Total das vendas</p>
+                            <h3 className={classes.cardTitle}>
+                                {sellsList.length > 1 && totalSellsValue(sellsList)}
                             </h3>
                         </CardHeader>
                     </Card>
@@ -117,6 +140,6 @@ export default function SellsList(props) {
                     </Card>
                 </GridItem>
             </GridContainer>
-        </div>
+        </div >
     );
 }
